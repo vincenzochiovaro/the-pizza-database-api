@@ -55,4 +55,7 @@ nunit-*.xml
 
 # Rider
 .idea/
-.DS_Store/
+
+# macOS system files
+.DS_Store
+**/.DS_Store
