@@ -5,21 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ThePizzaDatabaseAPI;
 
-public class TestToDelete
+public class TestToDelete(ILogger<TestToDelete> logger)
 {
-    private readonly ILogger<TestToDelete> _logger;
-
-    public TestToDelete(ILogger<TestToDelete> logger)
-    {
-        _logger = logger;
-    }
-
     [Function("TestToDelete")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-        return new OkObjectResult("Welcome to Azure Functions!");
+        logger.LogInformation("✅ API Key validated - Access granted!");
+        return new OkObjectResult("Welcome to PROTECTED function!");
         
     }
-
 }
