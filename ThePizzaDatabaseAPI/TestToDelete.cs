@@ -10,8 +10,8 @@ public class TestToDelete(ILogger<TestToDelete> logger)
     [Function("TestToDelete")]
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
-        logger.LogInformation("API Key validated - deployed from azuredevops - Access granted!");
-        return new OkObjectResult("Welcome to PROTECTED function!");
+        logger.LogInformation("deployed via devops Access granted!");
+        return new OkObjectResult("🚀Welcome to PROTECTED function!");
         
     }
 }
