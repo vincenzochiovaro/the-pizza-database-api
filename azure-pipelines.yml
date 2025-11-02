@@ -22,7 +22,7 @@ steps:
 
 - task: AzureFunctionApp@2
   inputs:
-    azureSubscription: 'MyServiceConnection'
+    azureSubscription: 'serviceConnectionPizzaDatabaseApi'
     appType: 'functionApp'
     appName: 'func-the-pizza-database-api'
     package: '$(outputDir)'
