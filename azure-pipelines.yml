@@ -1,28 +1,30 @@
 trigger: none
 
-pool:
-  vmImage: 'windows-latest'
+stages:
+- stage: Deploy
+  displayName: 'Deploy to Test Function App'
+  jobs:
+  - deployment: DeployJob
+    displayName: 'Deploy ThePizzaDatabaseAPI'
+    environment: 'Test' 
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
 
-variables:
-  buildConfiguration: 'Release'
-  projectPath: 'ThePizzaDatabaseAPI'
-  outputDir: '$(Build.ArtifactStagingDirectory)/output'
+          - task: UseDotNet@2
+            inputs:
+              version: '8.0.x'
 
-steps:
-- checkout: self
+          - script: |
+              cd ThePizzaDatabaseAPI
+              dotnet build --configuration Release --output $(Build.ArtifactStagingDirectory)/output
+            displayName: 'Build project'
 
-- task: UseDotNet@2
-  inputs:
-    version: '8.0.x'
-
-- script: |
-    cd $(projectPath)
-    dotnet build --configuration $(buildConfiguration) --output $(outputDir)
-  displayName: 'Build project'
-
-- task: AzureFunctionApp@2
-  inputs:
-    azureSubscription: 'serviceConnectionPizzaDatabaseApi'
-    appType: 'functionApp'
-    appName: 'func-the-pizza-database-api'
-    package: '$(outputDir)'
+          - task: AzureFunctionApp@2
+            inputs:
+              azureSubscription: 'serviceConnectionPizzaDatabaseApi'
+              appType: 'functionApp'
+              appName: 'func-the-pizza-database-api'
+              package: '$(Build.ArtifactStagingDirectory)/output'
