@@ -1,0 +1,28 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  projectPath: 'ThePizzaDatabaseAPI'
+  outputDir: '$(Build.ArtifactStagingDirectory)/output'
+
+steps:
+- checkout: self
+
+- task: UseDotNet@2
+  inputs:
+    version: '8.0.x'
+
+- script: |
+    cd $(projectPath)
+    dotnet build --configuration $(buildConfiguration) --output $(outputDir)
+  displayName: 'Build project'
+
+- task: AzureFunctionApp@2
+  inputs:
+    azureSubscription: 'MyServiceConnection'
+    appType: 'functionApp'
+    appName: 'func-the-pizza-database-api'
+    package: '$(outputDir)'
