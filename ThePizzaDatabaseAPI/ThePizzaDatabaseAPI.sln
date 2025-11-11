@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI", "ThePizzaDatabaseAPI.csproj", "{885C8674-B3A7-4D25-BC4A-6EE3546C0B37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI.Core", "..\ThePizzaDatabaseAPI.Core\ThePizzaDatabaseAPI.Core.csproj", "{A1EDF3C8-EC9A-400D-B255-32DF0758CA26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI.Infrastructure", "..\ThePizzaDatabaseAPI.Infrastructure\ThePizzaDatabaseAPI.Infrastructure.csproj", "{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{885C8674-B3A7-4D25-BC4A-6EE3546C0B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{885C8674-B3A7-4D25-BC4A-6EE3546C0B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{885C8674-B3A7-4D25-BC4A-6EE3546C0B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1EDF3C8-EC9A-400D-B255-32DF0758CA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1EDF3C8-EC9A-400D-B255-32DF0758CA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1EDF3C8-EC9A-400D-B255-32DF0758CA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1EDF3C8-EC9A-400D-B255-32DF0758CA26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
