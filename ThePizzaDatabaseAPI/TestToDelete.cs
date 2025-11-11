@@ -13,6 +13,7 @@ public class TestToDelete(ILogger<TestToDelete> logger, IPizzaRepositoryPlaceHol
     {
         logger.LogInformation("deployed via devops Access granted!");
         pizzaRepositoryPlaceHolder.GetAllAsync();
+        
         return new OkObjectResult("🚀Welcome to PROTECTED function!");
         
     }
