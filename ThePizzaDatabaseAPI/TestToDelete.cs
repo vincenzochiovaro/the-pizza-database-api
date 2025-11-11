@@ -6,13 +6,13 @@ using ThePizzaDatabaseAPI.Core.Interfaces;
 
 namespace ThePizzaDatabaseAPI;
 
-public class TestToDelete(ILogger<TestToDelete> logger, IPizzaRepository  pizzaRepository)
+public class TestToDelete(ILogger<TestToDelete> logger, IPizzaRepositoryPlaceHolder  pizzaRepositoryPlaceHolder)
 {
     [Function("TestToDelete")]
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
         logger.LogInformation("deployed via devops Access granted!");
-        pizzaRepository.GetAllAsync();
+        pizzaRepositoryPlaceHolder.GetAllAsync();
         return new OkObjectResult("🚀Welcome to PROTECTED function!");
         
     }
