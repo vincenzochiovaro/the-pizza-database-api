@@ -8,7 +8,7 @@ using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Services;
 using ThePizzaDatabaseAPI.Infrastructure;
-using ThePizzaDatabaseAPI.Infrastructure.Utility;
+using ThePizzaDatabaseAPI.Infrastructure.Utilities;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
