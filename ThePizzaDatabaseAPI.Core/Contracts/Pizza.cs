@@ -6,8 +6,7 @@ namespace ThePizzaDatabaseAPI.Core.Contracts
     public class Pizza
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public required string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public required string Name { get; set; }
         public required int PrepTime { get; set; }
