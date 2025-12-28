@@ -4,7 +4,9 @@ using Microsoft.Extensions.Hosting;
 using ThePizzaDatabaseAPI;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
+using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
+using ThePizzaDatabaseAPI.Core.Services;
 using ThePizzaDatabaseAPI.Infrastructure;
 using ThePizzaDatabaseAPI.Infrastructure.Utility;
 
@@ -12,12 +14,17 @@ var builder = FunctionsApplication.CreateBuilder(args);
 
 builder.ConfigureFunctionsWebApplication();
 builder.UseMiddleware<ApiKeyMiddleware>();
+MongoConventions.RegisterConventions();
 
 builder.Services.AddOpenTelemetry()
     .UseFunctionsWorkerDefaults()
     .UseAzureMonitorExporter();
 
-MongoConventions.RegisterConventions();
 
-builder.Services.AddSingleton<IPizzaRepositoryPlaceHolder, MongoPizzaRepositoryPlaceHolder>();
+builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
+builder.Services.AddScoped<PizzaService>();
+builder.Services.AddSingleton<IMongoClient>(_ =>
+    new MongoClient(Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")));
+
+
 builder.Build().Run();
