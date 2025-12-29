@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ThePizzaDatabaseAPI.Core.Services;
 
-namespace ThePizzaDatabaseAPI;
+namespace ThePizzaDatabaseAPI.Controllers;
 
 public class GetPizzasByFilter
 {
