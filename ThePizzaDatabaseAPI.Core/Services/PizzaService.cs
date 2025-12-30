@@ -17,8 +17,8 @@ public class PizzaService
         if (filter == "All pizzas")
             return await _repository.GetAllAsync();
 
-        if (filter == "Preparation time")
-            return await _repository.GetAllAsync();
+        // if (filter == "Preparation time")
+        //     return await _repository.GetAllAsync(); // Todo: GetPrepTimeAsync
 
         return await _repository.GetAllAsync();
     }

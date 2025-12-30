@@ -11,11 +11,10 @@ public class GetPizzasByFilter
     private readonly ILogger<GetPizzasByFilter> _logger;
     private readonly PizzaService _pizzaService;
 
-    public GetPizzasByFilter(ILogger<GetPizzasByFilter> logger, PizzaService  pizzaService)
+    public GetPizzasByFilter(ILogger<GetPizzasByFilter> logger, PizzaService pizzaService)
     {
         _logger = logger;
         _pizzaService = pizzaService;
-        
     }
 
     [Function("GetPizzasByFilter")]
@@ -27,7 +26,7 @@ public class GetPizzasByFilter
         {
             return new BadRequestObjectResult("filter is required");
         }
-        
+
         var result = await _pizzaService.GetPizzasByFilter(filter);
         return new OkObjectResult(result);
     }
