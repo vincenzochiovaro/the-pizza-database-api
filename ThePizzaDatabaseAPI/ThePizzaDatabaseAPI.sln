@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI.Infrastructure", "..\ThePizzaDatabaseAPI.Infrastructure\ThePizzaDatabaseAPI.Infrastructure.csproj", "{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePizzaDatabaseAPI.Tests", "..\ThePizzaDatabaseAPI.Tests\ThePizzaDatabaseAPI.Tests.csproj", "{175C81FA-0E45-4D29-98E7-919AC9143C5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CB0E9B8-7338-4532-87CB-C2CB4ECEBB28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175C81FA-0E45-4D29-98E7-919AC9143C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175C81FA-0E45-4D29-98E7-919AC9143C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175C81FA-0E45-4D29-98E7-919AC9143C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175C81FA-0E45-4D29-98E7-919AC9143C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

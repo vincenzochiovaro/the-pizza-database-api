@@ -2,7 +2,7 @@
 
 using MongoDB.Bson.Serialization.Conventions;
 
-namespace ThePizzaDatabaseAPI.Infrastructure.Utility;
+namespace ThePizzaDatabaseAPI.Infrastructure.Utilities;
 
 public static class MongoConventions
 {
