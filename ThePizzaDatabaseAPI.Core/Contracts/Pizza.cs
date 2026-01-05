@@ -9,12 +9,8 @@ namespace ThePizzaDatabaseAPI.Core.Contracts
         public ObjectId Id { get; set; }
 
         public required string Name { get; set; }
-        public required int PrepTime { get; set; }
-        public required int Price { get; set; }
         public string? Image { get; set; }
-        public required int Temp { get; set; }
-        public required string Style { get; set; }
-        public required int Views { get; set; }
-        public required string Oven { get; set; }
+        public string? Note { get; set; }
+        public required List<string> Ingredients { get; set; }
     }
 }
