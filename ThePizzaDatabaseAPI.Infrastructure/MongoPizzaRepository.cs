@@ -17,6 +17,6 @@ public class MongoPizzaRepository : IPizzaRepository
     public async Task<List<Pizza>> GetAllAsync()
     {
         var allPizzas = await _collectionWithTestModel.Find(_ => true).ToListAsync();
-        return allPizzas;
+        return allPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
     }
 }
