@@ -2,6 +2,7 @@ using AutoFixture;
 using MongoDB.Bson;
 using Moq;
 using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Enums;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Services;
 
@@ -16,7 +17,7 @@ public class PizzaServiceTests
     public async Task GivenFilterIsUnknown_WhenGettingPizzas_Then_Default_AllPizzasAreReturned()
     {
         // Given
-        var filter = "invalidFilter";
+        var filter =  (PizzaFilter)999;
         var dummyPizzas = _fixture.Build<Pizza>()
             .With(pizza => pizza.Id, ObjectId.GenerateNewId())
             .CreateMany(2)
@@ -37,7 +38,7 @@ public class PizzaServiceTests
     public async Task GivenFilterIsAllPizzas_WhenGettingPizzas_ThenAllPizzasAreReturned()
     {
         // Given
-        var filter = "All Pizzas";
+        var filter = PizzaFilter.AllPizzas;
         var dummyPizzas = _fixture.Build<Pizza>()
             .With(pizza => pizza.Id, ObjectId.GenerateNewId())
             .CreateMany(2)
@@ -55,8 +56,9 @@ public class PizzaServiceTests
     }
 
     [Fact]
-    public async Task GivenFilterIsPreparationTime_WhenGettingPizzas_ThePizzasOrderedByPrepTimeIsReturned()
+    public async Task GivenFilterIsVegetarianPizzas_WhenGettingPizzas_TheOnlyVegetarianPizzasAreReturned()
     {
         // TODO
+        // HERE WRITE TEST AND WE ARE DONE
     }
 }
