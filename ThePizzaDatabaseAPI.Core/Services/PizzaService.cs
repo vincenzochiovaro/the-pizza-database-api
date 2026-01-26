@@ -1,5 +1,6 @@
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Enums;
 
 namespace ThePizzaDatabaseAPI.Core.Services;
 
@@ -12,13 +13,13 @@ public class PizzaService
         _repository = repository;
     }
 
-    public async Task<List<Pizza>> GetPizzasByFilter(string filter)
+    public async Task<List<Pizza>> GetPizzasByFilter(PizzaFilter filter)
     {
-        if (filter == "All pizzas")
+        if (filter == PizzaFilter.AllPizzas)
             return await _repository.GetAllAsync();
 
-        // if (filter == "Preparation time")
-        //     return await _repository.GetAllAsync(); // Todo: GetPrepTimeAsync
+        if (filter == PizzaFilter.VegetarianPizzas)
+            return await _repository.GetVegPizzasAsync(); 
 
         return await _repository.GetAllAsync();
     }

@@ -2,6 +2,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ThePizzaDatabaseAPI.Core.Enums;
 using ThePizzaDatabaseAPI.Core.Services;
 
 namespace ThePizzaDatabaseAPI.Controllers;
@@ -26,8 +27,10 @@ public class GetPizzasByFilter
         {
             return new BadRequestObjectResult("filter is required");
         }
-
-        var result = await _pizzaService.GetPizzasByFilter(filter);
+        
+        Enum.TryParse<PizzaFilter>(filter.Replace(" ", ""), ignoreCase: true, out var pizzaFilter);
+        var result = await _pizzaService.GetPizzasByFilter(pizzaFilter);
+        
         return new OkObjectResult(result);
     }
 }
