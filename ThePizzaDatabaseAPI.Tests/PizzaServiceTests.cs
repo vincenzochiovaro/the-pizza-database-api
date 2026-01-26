@@ -58,7 +58,28 @@ public class PizzaServiceTests
     [Fact]
     public async Task GivenFilterIsVegetarianPizzas_WhenGettingPizzas_TheOnlyVegetarianPizzasAreReturned()
     {
-        // TODO
-        // HERE WRITE TEST AND WE ARE DONE
+        // Given
+        var filter = PizzaFilter.VegetarianPizzas;
+        var dummyPizzas = _fixture.Build<Pizza>()
+            .With(pizza => pizza.Id, ObjectId.GenerateNewId())
+            .CreateMany(3)
+            .ToList();
+        
+        dummyPizzas[0].IsVegetarian = true;
+        dummyPizzas[1].IsVegetarian = true;
+        dummyPizzas[2].IsVegetarian = false;
+        
+        _repository.Setup(x => x.GetVegPizzasAsync()).ReturnsAsync(dummyPizzas);
+        
+        // When
+        var sut = new PizzaService(_repository.Object);
+        
+        var result = await sut.GetPizzasByFilter(filter);
+        
+        // Then
+        _repository.Verify(x => x.GetVegPizzasAsync(), Times.Once);
+        
+        var vegetarianPizzas = result.Count(x => x.IsVegetarian);
+        Assert.Equal(2, vegetarianPizzas);
     }
 }
