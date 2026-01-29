@@ -4,6 +4,6 @@ namespace ThePizzaDatabaseAPI.Core.Interfaces;
 
 public interface IPizzaRepository
 {
-    Task<List<Pizza>> GetAllAsync();
-    Task<List<Pizza>> GetVegPizzasAsync();
+    Task<List<Pizza>> GetAllAsync(string lang);
+    Task<List<Pizza>> GetVegPizzasAsync(string lang);
 }

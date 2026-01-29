@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ThePizzaDatabaseAPI.Core\ThePizzaDatabaseAPI.Core.csproj" />
+      <ProjectReference Include="..\ThePizzaDatabaseAPI.Infrastructure\ThePizzaDatabaseAPI.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

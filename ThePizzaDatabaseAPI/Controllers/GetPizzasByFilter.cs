@@ -22,6 +22,8 @@ public class GetPizzasByFilter
     public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
         var filter = req.Query["filter"].ToString();
+        var lang = req.Query["lang"].ToString();
+        
 
         if (string.IsNullOrEmpty(filter))
         {
@@ -29,7 +31,7 @@ public class GetPizzasByFilter
         }
         
         Enum.TryParse<PizzaFilter>(filter.Replace(" ", ""), ignoreCase: true, out var pizzaFilter);
-        var result = await _pizzaService.GetPizzasByFilter(pizzaFilter);
+        var result = await _pizzaService.GetPizzasByFilter(pizzaFilter, lang);
         
         return new OkObjectResult(result);
     }

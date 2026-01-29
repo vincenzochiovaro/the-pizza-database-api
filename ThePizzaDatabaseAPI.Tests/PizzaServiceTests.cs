@@ -1,5 +1,4 @@
 using AutoFixture;
-using MongoDB.Bson;
 using Moq;
 using ThePizzaDatabaseAPI.Core.Contracts;
 using ThePizzaDatabaseAPI.Core.Enums;
@@ -18,20 +17,20 @@ public class PizzaServiceTests
     {
         // Given
         var filter =  (PizzaFilter)999;
+        var lang = "any";
         var dummyPizzas = _fixture.Build<Pizza>()
-            .With(pizza => pizza.Id, ObjectId.GenerateNewId())
             .CreateMany(2)
             .ToList();
 
-        _repository.Setup(x => x.GetAllAsync()).ReturnsAsync(dummyPizzas);
+        _repository.Setup(x => x.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
 
         // When
         var sut = new PizzaService(_repository.Object);
 
         // Then
-        await sut.GetPizzasByFilter(filter);
+        await sut.GetPizzasByFilter(filter, lang);
 
-        _repository.Verify(x => x.GetAllAsync(), Times.Once);
+        _repository.Verify(x => x.GetAllAsync(lang), Times.Once);
     }
 
     [Fact]
@@ -39,20 +38,20 @@ public class PizzaServiceTests
     {
         // Given
         var filter = PizzaFilter.AllPizzas;
+        var lang = "any";
         var dummyPizzas = _fixture.Build<Pizza>()
-            .With(pizza => pizza.Id, ObjectId.GenerateNewId())
             .CreateMany(2)
             .ToList();
 
-        _repository.Setup(x => x.GetAllAsync()).ReturnsAsync(dummyPizzas);
+        _repository.Setup(x => x.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
 
         // When
         var sut = new PizzaService(_repository.Object);
 
         // Then
-        await sut.GetPizzasByFilter(filter);
+        await sut.GetPizzasByFilter(filter, lang);
 
-        _repository.Verify(x => x.GetAllAsync(), Times.Once);
+        _repository.Verify(x => x.GetAllAsync(lang), Times.Once);
     }
 
     [Fact]
@@ -60,8 +59,8 @@ public class PizzaServiceTests
     {
         // Given
         var filter = PizzaFilter.VegetarianPizzas;
+        var lang = "any";
         var dummyPizzas = _fixture.Build<Pizza>()
-            .With(pizza => pizza.Id, ObjectId.GenerateNewId())
             .CreateMany(3)
             .ToList();
         
@@ -69,15 +68,15 @@ public class PizzaServiceTests
         dummyPizzas[1].IsVegetarian = true;
         dummyPizzas[2].IsVegetarian = false;
         
-        _repository.Setup(x => x.GetVegPizzasAsync()).ReturnsAsync(dummyPizzas);
+        _repository.Setup(x => x.GetVegPizzasAsync(lang)).ReturnsAsync(dummyPizzas);
         
         // When
         var sut = new PizzaService(_repository.Object);
         
-        var result = await sut.GetPizzasByFilter(filter);
+        var result = await sut.GetPizzasByFilter(filter, lang);
         
         // Then
-        _repository.Verify(x => x.GetVegPizzasAsync(), Times.Once);
+        _repository.Verify(x => x.GetVegPizzasAsync(lang), Times.Once);
         
         var vegetarianPizzas = result.Count(x => x.IsVegetarian);
         Assert.Equal(2, vegetarianPizzas);
