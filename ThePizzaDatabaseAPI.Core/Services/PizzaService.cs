@@ -13,14 +13,14 @@ public class PizzaService
         _repository = repository;
     }
 
-    public async Task<List<Pizza>> GetPizzasByFilter(PizzaFilter filter)
+    public async Task<List<Pizza>> GetPizzasByFilter(PizzaFilter filter, string lang)
     {
         if (filter == PizzaFilter.AllPizzas)
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllAsync(lang);
 
         if (filter == PizzaFilter.VegetarianPizzas)
-            return await _repository.GetVegPizzasAsync(); 
+            return await _repository.GetVegPizzasAsync(lang); 
 
-        return await _repository.GetAllAsync();
+        return await _repository.GetAllAsync(lang);
     }
 }

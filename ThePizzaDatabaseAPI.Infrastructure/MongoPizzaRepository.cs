@@ -1,30 +1,56 @@
 using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Infrastructure.Models;
 
 namespace ThePizzaDatabaseAPI.Infrastructure;
 
 public class MongoPizzaRepository : IPizzaRepository
 {
-    IMongoCollection<Pizza> _pizzasCollection;
+    IMongoCollection<PizzaDocument> _pizzasCollection;
     public MongoPizzaRepository(IMongoClient mongoClient)
     {
         var db = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME"));
 
-        _pizzasCollection = db.GetCollection<Pizza>("pizzas");
+        _pizzasCollection = db.GetCollection<PizzaDocument>("pizzas");
     }
     
-    public async Task<List<Pizza>> GetAllAsync()
+    public async Task<List<Pizza>> GetAllAsync(string lang)
     {
         var allPizzas = await _pizzasCollection.Find(_ => true).ToListAsync();
-        return allPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
+        var mappedPizzas = MapToPizzaList(allPizzas,  lang);
+        
+        return mappedPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
     }
 
-    public async Task<List<Pizza>> GetVegPizzasAsync()
+    public async Task<List<Pizza>> GetVegPizzasAsync(string lang)
     {
-        var filter = Builders<Pizza>.Filter.Eq(pizza => pizza.IsVegetarian, true);
+        var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsVegetarian, true);
 
         var vegPizzas = await _pizzasCollection.Find(filter).ToListAsync();
-        return vegPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
+        var mappedPizzas = MapToPizzaList(vegPizzas,  lang);
+        
+        return mappedPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
+    }
+
+    private List<Pizza> MapToPizzaList(List<PizzaDocument> allPizzas, string lang)
+    {
+        var pizzas = allPizzas.Select(pizza =>
+        {
+            var translation = lang.ToLower() == "it" ? pizza.Translations.It : pizza.Translations.En;
+
+            return new Pizza
+            {
+                Id = pizza.Id,
+                Name = translation.Name,
+                Ingredients = translation.Ingredients,
+                Note = translation.Note,
+                Image = pizza.Image,
+                IsVegetarian = pizza.IsVegetarian
+
+            };
+        }).ToList();
+        
+        return pizzas;
     }
 }
