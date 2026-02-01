@@ -14,6 +14,8 @@ public class PizzaDocument
     public string? Image { get; set; }
 
     public bool IsVegetarian { get; set; }
+    public bool IsStuffCrust { get; set; }
+    public bool IsClassic { get; set; }
 }
 
 public class PizzaTranslations
