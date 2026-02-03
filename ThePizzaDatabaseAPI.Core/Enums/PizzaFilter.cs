@@ -3,5 +3,7 @@ namespace ThePizzaDatabaseAPI.Core.Enums;
 public enum PizzaFilter
 {
     AllPizzas,
-    VegetarianPizzas
+    VegetarianPizzas,
+    StuffedCrustPizzas,
+    ClassicPizzas
 }
