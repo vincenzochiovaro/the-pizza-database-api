@@ -81,4 +81,20 @@ public class PizzaServiceTests
         var vegetarianPizzas = result.Count(x => x.IsVegetarian);
         Assert.Equal(2, vegetarianPizzas);
     }
+    
+    [Fact]
+    public async Task GivenFilterIsStuffedCrustPizzas_WhenGettingPizzas_ThenOnlyStuffedCrustPizzasAreReturned()
+    {
+        // TODO: Implement the filtering logic and complete this test in a future task.
+        // This test will verify that when the StuffedCrustPizzas filter is used,
+        // the service returns only pizzas that have a stuffed crust.
+    }
+
+    [Fact]
+    public async Task GivenFilterIsClassicPizzas_WhenGettingPizzas_ThenOnlyClassicPizzasAreReturned()
+    {
+        // TODO: Implement the filtering logic and complete this test in a future task.
+        // This test will verify that when the ClassicPizzas filter is used,
+        // the service returns only pizzas that are considered classic.
+    }
 }
