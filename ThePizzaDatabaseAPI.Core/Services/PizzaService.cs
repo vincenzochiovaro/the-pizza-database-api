@@ -21,6 +21,9 @@ public class PizzaService
         if (filter == PizzaFilter.VegetarianPizzas)
             return await _repository.GetVegPizzasAsync(lang); 
 
+         if (filter == PizzaFilter.StuffedCrustPizzas)
+            return await _repository.GetStuffedCrustPizzasAsync(lang); 
+
         return await _repository.GetAllAsync(lang);
     }
 }

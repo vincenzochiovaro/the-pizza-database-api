@@ -33,6 +33,16 @@ public class MongoPizzaRepository : IPizzaRepository
         return mappedPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
     }
 
+    public async Task<List<Pizza>> GetStuffedCrustPizzasAsync(string lang)
+    {
+        var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsStuffCrust, true);
+
+        var stuffCrustPizzas = await _pizzasCollection.Find(filter).ToListAsync();
+        var mappedPizzas = MapToPizzaList(stuffCrustPizzas,  lang);
+        
+        return mappedPizzas.OrderBy(_ => Random.Shared.Next()).ToList();
+    }
+
     private List<Pizza> MapToPizzaList(List<PizzaDocument> allPizzas, string lang)
     {
         var pizzas = allPizzas.Select(pizza =>
@@ -46,8 +56,8 @@ public class MongoPizzaRepository : IPizzaRepository
                 Ingredients = translation.Ingredients,
                 Note = translation.Note,
                 Image = pizza.Image,
-                IsVegetarian = pizza.IsVegetarian
-
+                IsVegetarian = pizza.IsVegetarian,
+                IsStuffCrust = pizza.IsStuffCrust
             };
         }).ToList();
         
