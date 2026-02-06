@@ -85,9 +85,35 @@ public class PizzaServiceTests
     [Fact]
     public async Task GivenFilterIsStuffedCrustPizzas_WhenGettingPizzas_ThenOnlyStuffedCrustPizzasAreReturned()
     {
-        // TODO: Implement the filtering logic and complete this test in a future task.
-        // This test will verify that when the StuffedCrustPizzas filter is used,
-        // the service returns only pizzas that have a stuffed crust.
+        // Given
+        var filter = PizzaFilter.StuffedCrustPizzas;
+        var lang = "any";
+        var dummyPizzas = _fixture.Build<Pizza>()
+            .CreateMany(3)
+            .ToList();
+
+        dummyPizzas[0].IsStuffCrust = true;
+        dummyPizzas[1].IsStuffCrust = true;
+        dummyPizzas[2].IsStuffCrust = false;
+
+        var stuffedCrustOnly = dummyPizzas.Where(p => p.IsStuffCrust).ToList();
+
+        _repository.Setup(x => x.GetStuffedCrustPizzasAsync(lang)).ReturnsAsync(stuffedCrustOnly);
+        
+        // When
+        var sut = new PizzaService(_repository.Object);
+        
+        var result = await sut.GetPizzasByFilter(filter, lang);
+
+        // Then
+        _repository.Verify(x => x.GetStuffedCrustPizzasAsync(lang), Times.Once);
+
+        var stuffedCrustCount = result.Count(x => x.IsStuffCrust);
+        Assert.Equal(2, stuffedCrustCount);
+        
+        //added this check because Assert.All succeeds when there are zero elements
+        Assert.NotEmpty(result);
+        Assert.All(result, p => Assert.True(p.IsStuffCrust));
     }
 
     [Fact]
