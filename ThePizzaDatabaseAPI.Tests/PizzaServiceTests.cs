@@ -68,7 +68,9 @@ public class PizzaServiceTests
         dummyPizzas[1].IsVegetarian = true;
         dummyPizzas[2].IsVegetarian = false;
         
-        _repository.Setup(x => x.GetVegPizzasAsync(lang)).ReturnsAsync(dummyPizzas);
+        var vegetarianOnly = dummyPizzas.Where(p => p.IsVegetarian).ToList();
+
+        _repository.Setup(x => x.GetVegPizzasAsync(lang)).ReturnsAsync(vegetarianOnly);
         
         // When
         var sut = new PizzaService(_repository.Object);
@@ -80,6 +82,9 @@ public class PizzaServiceTests
         
         var vegetarianPizzas = result.Count(x => x.IsVegetarian);
         Assert.Equal(2, vegetarianPizzas);
+
+        Assert.NotEmpty(result);
+        Assert.All(result, p => Assert.True(p.IsVegetarian));
     }
     
     [Fact]
@@ -111,7 +116,6 @@ public class PizzaServiceTests
         var stuffedCrustCount = result.Count(x => x.IsStuffCrust);
         Assert.Equal(2, stuffedCrustCount);
         
-        //added this check because Assert.All succeeds when there are zero elements
         Assert.NotEmpty(result);
         Assert.All(result, p => Assert.True(p.IsStuffCrust));
     }
