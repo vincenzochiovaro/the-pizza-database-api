@@ -22,7 +22,7 @@ builder.Services.AddOpenTelemetry()
 
 
 builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
-builder.Services.AddSingleton<IWeeklyShuffler, WeeklyShuffler>();
+builder.Services.AddScoped<IWeeklyShuffler>( _ => new WeeklyShuffler(() => DateTime.UtcNow) );
 builder.Services.AddScoped<PizzaService>();
 
 builder.Services.AddSingleton<IMongoClient>(_ =>
