@@ -22,7 +22,7 @@ public class PizzaServiceTests
             .CreateMany(2)
             .ToList();
 
-        _repository.Setup(x => x.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
+        _repository.Setup(pizza => pizza.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
 
         // When
         var sut = new PizzaService(_repository.Object);
@@ -30,7 +30,7 @@ public class PizzaServiceTests
         // Then
         await sut.GetPizzasByFilter(filter, lang);
 
-        _repository.Verify(x => x.GetAllAsync(lang), Times.Once);
+        _repository.Verify(pizza => pizza.GetAllAsync(lang), Times.Once);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class PizzaServiceTests
             .CreateMany(2)
             .ToList();
 
-        _repository.Setup(x => x.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
+        _repository.Setup(pizza => pizza.GetAllAsync(lang)).ReturnsAsync(dummyPizzas);
 
         // When
         var sut = new PizzaService(_repository.Object);
@@ -51,7 +51,7 @@ public class PizzaServiceTests
         // Then
         await sut.GetPizzasByFilter(filter, lang);
 
-        _repository.Verify(x => x.GetAllAsync(lang), Times.Once);
+        _repository.Verify(pizza => pizza.GetAllAsync(lang), Times.Once);
     }
 
     [Fact]
@@ -68,7 +68,9 @@ public class PizzaServiceTests
         dummyPizzas[1].IsVegetarian = true;
         dummyPizzas[2].IsVegetarian = false;
         
-        _repository.Setup(x => x.GetVegPizzasAsync(lang)).ReturnsAsync(dummyPizzas);
+        var vegetarianOnly = dummyPizzas.Where(p => p.IsVegetarian).ToList();
+
+        _repository.Setup(pizza => pizza.GetVegPizzasAsync(lang)).ReturnsAsync(vegetarianOnly);
         
         // When
         var sut = new PizzaService(_repository.Object);
@@ -76,18 +78,46 @@ public class PizzaServiceTests
         var result = await sut.GetPizzasByFilter(filter, lang);
         
         // Then
-        _repository.Verify(x => x.GetVegPizzasAsync(lang), Times.Once);
+        _repository.Verify(pizza => pizza.GetVegPizzasAsync(lang), Times.Once);
         
         var vegetarianPizzas = result.Count(x => x.IsVegetarian);
         Assert.Equal(2, vegetarianPizzas);
+
+        Assert.NotEmpty(result);
+        Assert.All(result, p => Assert.True(p.IsVegetarian));
     }
     
     [Fact]
     public async Task GivenFilterIsStuffedCrustPizzas_WhenGettingPizzas_ThenOnlyStuffedCrustPizzasAreReturned()
     {
-        // TODO: Implement the filtering logic and complete this test in a future task.
-        // This test will verify that when the StuffedCrustPizzas filter is used,
-        // the service returns only pizzas that have a stuffed crust.
+        // Given
+        var filter = PizzaFilter.StuffedCrustPizzas;
+        var lang = "any";
+        var dummyPizzas = _fixture.Build<Pizza>()
+            .CreateMany(3)
+            .ToList();
+
+        dummyPizzas[0].IsStuffCrust = true;
+        dummyPizzas[1].IsStuffCrust = true;
+        dummyPizzas[2].IsStuffCrust = false;
+
+        var stuffedCrustOnly = dummyPizzas.Where(pizza => pizza.IsStuffCrust).ToList();
+
+        _repository.Setup(pizza => pizza.GetStuffedCrustPizzasAsync(lang)).ReturnsAsync(stuffedCrustOnly);
+        
+        // When
+        var sut = new PizzaService(_repository.Object);
+        
+        var result = await sut.GetPizzasByFilter(filter, lang);
+
+        // Then
+        _repository.Verify(pizza => pizza.GetStuffedCrustPizzasAsync(lang), Times.Once);
+
+        var stuffedCrustCount = result.Count(pizza => pizza.IsStuffCrust);
+        Assert.Equal(2, stuffedCrustCount);
+        
+        Assert.NotEmpty(result);
+        Assert.All(result, pizza => Assert.True(pizza.IsStuffCrust));
     }
 
     [Fact]
