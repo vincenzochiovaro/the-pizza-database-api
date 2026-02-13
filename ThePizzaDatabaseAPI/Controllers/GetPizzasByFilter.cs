@@ -32,7 +32,7 @@ public class GetPizzasByFilter
         
         var sanitizedFilter = filter.Replace(" ", "");
         
-       if (Enum.TryParse<PizzaFilter>(sanitizedFilter, ignoreCase: true, out var pizzaFilter) == false)
+       if (!Enum.TryParse<PizzaFilter>(sanitizedFilter, ignoreCase: true, out var pizzaFilter)) 
         {
             pizzaFilter = PizzaFilter.AllPizzas;
         }
