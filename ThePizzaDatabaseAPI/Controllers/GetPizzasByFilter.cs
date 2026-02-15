@@ -30,7 +30,13 @@ public class GetPizzasByFilter
             return new BadRequestObjectResult("filter is required");
         }
         
-        Enum.TryParse<PizzaFilter>(filter.Replace(" ", ""), ignoreCase: true, out var pizzaFilter);
+        var sanitizedFilter = filter.Replace(" ", "");
+        
+       if (!Enum.TryParse<PizzaFilter>(sanitizedFilter, ignoreCase: true, out var pizzaFilter)) 
+        {
+            pizzaFilter = PizzaFilter.AllPizzas;
+        }
+
         var result = await _pizzaService.GetPizzasByFilter(pizzaFilter, lang);
         
         return new OkObjectResult(result);
