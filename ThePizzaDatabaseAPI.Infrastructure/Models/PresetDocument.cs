@@ -1,4 +1,3 @@
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace ThePizzaDatabaseAPI.Infrastructure.Models;
@@ -6,7 +5,7 @@ namespace ThePizzaDatabaseAPI.Infrastructure.Models;
 public class PresetDocument
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public StepLanguages Steps { get; set; } = new();
 }
