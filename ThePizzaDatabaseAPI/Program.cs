@@ -20,9 +20,9 @@ builder.Services.AddOpenTelemetry()
     .UseFunctionsWorkerDefaults()
     .UseAzureMonitorExporter();
 
-
 builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
-builder.Services.AddScoped<IWeeklyShuffler>( _ => new WeeklyShuffler(() => DateTime.UtcNow) );
+builder.Services.AddSingleton<IPresetRepository, MongoPresetRepository>();
+builder.Services.AddScoped<IWeeklyShuffler>(_ => new WeeklyShuffler(() => DateTime.UtcNow));
 builder.Services.AddScoped<PizzaService>();
 builder.Services.AddScoped<PresetsDataService>();
 
