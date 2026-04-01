@@ -18,8 +18,10 @@ public class PresetsDataService
         int doughBallCount,
         int doughBallWeight)
     {
-        var steps = await _presetRepository.GetStepsByPresetAndLang(presetTitle, lang);
 
+        var steps = await _presetRepository.GetStepsByPresetAndLang(presetTitle, lang);
+        var tips = "tips"; // todo call repository to retrieve tips
+        
         // TODO: call DoughBuilderCalculator() to calculate ingredient quantities
         // based on doughBallCount and doughBallWeight
 
@@ -29,7 +31,8 @@ public class PresetsDataService
             Flour = 0,
             Salt = 0,
             Yeast = 0,
-            Steps = steps
+            Steps = steps,
+            Tips = tips
         };
     }
 }

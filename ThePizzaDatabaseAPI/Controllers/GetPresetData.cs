@@ -34,7 +34,8 @@ public class GetPresetData
                 Flour = result.Flour,
                 Salt = result.Salt,
                 Yeast = result.Yeast,
-                Steps = result.Steps
+                Steps = result.Steps,
+                Tips = result.Tips
             };
 
             return new OkObjectResult(response);

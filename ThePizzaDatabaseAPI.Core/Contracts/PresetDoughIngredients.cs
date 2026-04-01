@@ -7,4 +7,6 @@ public class PresetDoughIngredients
     public int Salt { get; set; }
     public int Yeast { get; set; }
     public List<string> Steps { get; set; } = new();
+    
+    public string? Tips { get; set; }
 }
