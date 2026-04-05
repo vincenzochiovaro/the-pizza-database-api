@@ -7,7 +7,7 @@ public class PizzaDocument
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public required string Id { get; init; }
 
     public PizzaTranslations? Translations { get; set; }
 
@@ -16,6 +16,8 @@ public class PizzaDocument
     public bool IsVegetarian { get; set; }
     public bool IsStuffCrust { get; set; }
     public bool IsClassic { get; set; }
+    public bool IsAmerican { get; set; }
+    public bool IsWhite { get; set; }
 }
 
 public class PizzaTranslations
@@ -27,6 +29,6 @@ public class PizzaTranslations
 public class PizzaTranslation
 {
     public string? Name { get; set; }
-    public List<string>? Ingredients { get; set; } 
+    public List<string>? Ingredients { get; set; }
     public string? Note { get; set; }
 }
