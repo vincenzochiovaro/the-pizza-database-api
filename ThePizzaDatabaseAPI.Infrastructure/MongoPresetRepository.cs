@@ -20,7 +20,7 @@ public class MongoPresetRepository : IPresetRepository
         var preset = await _presetsCollection.Find(filter).FirstOrDefaultAsync();
 
         if (preset is null)
-            return new List<string>();
+            return [];
 
         return lang.ToLower() == "it"
             ? preset.Steps.It

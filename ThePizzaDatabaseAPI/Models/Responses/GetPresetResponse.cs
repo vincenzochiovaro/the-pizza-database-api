@@ -1,6 +1,6 @@
-namespace ThePizzaDatabaseAPI.Core.Contracts;
+namespace ThePizzaDatabaseAPI.Models.Responses;
 
-public class PresetDoughIngredients
+public class GetPresetResponse
 {
     public int Water { get; set; }
     public int Flour { get; set; }

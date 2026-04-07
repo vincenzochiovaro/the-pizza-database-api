@@ -10,7 +10,8 @@ public static class MongoConventions
     {
         var conventionPack = new ConventionPack()
         {
-            new CamelCaseElementNameConvention()
+            new CamelCaseElementNameConvention(),
+            new IgnoreExtraElementsConvention(true)
         };
         ConventionRegistry.Register("Conventions", conventionPack, type => true);
     }

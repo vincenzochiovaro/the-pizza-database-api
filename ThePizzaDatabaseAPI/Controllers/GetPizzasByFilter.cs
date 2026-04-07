@@ -23,7 +23,6 @@ public class GetPizzasByFilter
     {
         var filter = req.Query["filter"].ToString();
         var lang = req.Query["lang"].ToString();
-        
 
         if (string.IsNullOrEmpty(filter))
         {
