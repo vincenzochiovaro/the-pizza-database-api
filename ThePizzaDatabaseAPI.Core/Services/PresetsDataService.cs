@@ -1,3 +1,4 @@
+using ThePizzaDatabaseAPI.Core.Calculators;
 using ThePizzaDatabaseAPI.Core.Contracts;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 
@@ -16,21 +17,25 @@ public class PresetsDataService
         string presetTitle,
         string lang,
         int doughBallCount,
-        int doughBallWeight)
+        int doughBallWeight,
+        int hydration,
+        int temperature,
+        int? preferment)
     {
-
         var steps = await _presetRepository.GetStepsByPresetAndLang(presetTitle, lang);
         var tips = "tips"; // todo call repository to retrieve tips
-        
-        // TODO: call DoughBuilderCalculator() to calculate ingredient quantities
-        // based on doughBallCount and doughBallWeight TODO
+
+        var doughIngredients = DoughCalculator.Calculate();
 
         return new PresetDoughIngredients
         {
-            Water = 0,
-            Flour = 0,
-            Salt = 0,
-            Yeast = 0,
+            Water = doughIngredients.Water,
+            Flour = doughIngredients.Flour,
+            Salt = doughIngredients.Salt,
+            Yeast = doughIngredients.Yeast,
+            WaterDay2 = doughIngredients.WaterDay2,
+            FlourDay2 = doughIngredients.FlourDay2,
+            SaltDay2 = doughIngredients.SaltDay2,
             Steps = steps,
             Tips = tips
         };
