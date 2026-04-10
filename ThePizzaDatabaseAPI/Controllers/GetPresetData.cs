@@ -26,8 +26,13 @@ public class GetPresetData
         {
             var request = MapRequest(req);
             var result = await _presetsDataService.GetPresetDataAsync(
-                request.Preset, request.Lang, request.DoughBallCount, request.DoughBallWeight, request.Hydration,
-                request.Temperature, request.Preferment);
+                request.Preset,
+                request.Lang,
+                request.DoughBallCount,
+                request.DoughBallWeight,
+                request.Hydration,
+                request.Temperature,
+                request.Preferment);
 
             var response = new GetPresetResponse
             {

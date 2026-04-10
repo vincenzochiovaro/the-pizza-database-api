@@ -25,7 +25,8 @@ public class PresetsDataService
         var steps = await _presetRepository.GetStepsByPresetAndLang(presetTitle, lang);
         var tips = "tips"; // todo call repository to retrieve tips
 
-        var doughIngredients = DoughCalculator.Calculate();
+        var doughIngredients = DoughCalculator.Calculate(
+            presetTitle, doughBallCount, doughBallWeight, hydration, temperature, preferment);
 
         return new PresetDoughIngredients
         {
