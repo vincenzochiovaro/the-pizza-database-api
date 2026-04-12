@@ -25,6 +25,7 @@ public class GetPresetData
         try
         {
             var request = MapRequest(req);
+            
             var result = await _presetsDataService.GetPresetDataAsync(
                 request.Preset,
                 request.Lang,
