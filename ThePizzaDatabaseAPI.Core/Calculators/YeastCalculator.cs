@@ -4,16 +4,12 @@ public static class YeastCalculator
 {
     public static double Calculate(string pizzaType, int temperature, double flour)
     {
-        if (pizzaType == "Biga")
-        {
-            return 1;// todo calc here
-        }
-
         var hours = pizzaType switch
         {
             "Direct" => 8,
             "Express" => 3,
-            _ => 8
+            "Biga" => 5,
+            _=> 6
         };
 
         var tempFactor = temperature / 35.0;
