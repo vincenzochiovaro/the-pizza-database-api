@@ -25,14 +25,24 @@ public class GetPresetData
         try
         {
             var request = MapRequest(req);
+            
             var result = await _presetsDataService.GetPresetDataAsync(
-                request.Preset, request.Lang, request.DoughBallCount, request.DoughBallWeight);
+                request.Preset,
+                request.Lang,
+                request.DoughBallCount,
+                request.DoughBallWeight,
+                request.Hydration,
+                request.Temperature,
+                request.Preferment);
 
             var response = new GetPresetResponse
             {
                 Water = result.Water,
                 Flour = result.Flour,
                 Salt = result.Salt,
+                WaterDay2 = result.WaterDay2,
+                FlourDay2 = result.FlourDay2,
+                SaltDay2 = result.SaltDay2,
                 Yeast = result.Yeast,
                 Steps = result.Steps,
                 Tips = result.Tips
@@ -46,18 +56,29 @@ public class GetPresetData
             throw;
         }
     }
-    
+
     private static GetPresetDataRequest MapRequest(HttpRequest req)
     {
         int.TryParse(req.Query["doughBallCount"], out var doughBallCount);
         int.TryParse(req.Query["doughBallWeight"], out var doughBallWeight);
+        int.TryParse(req.Query["hydration"], out var hydration);
+        int.TryParse(req.Query["temperature"], out var temperature);
+
+        int? preferment = null;
+        if (int.TryParse(req.Query["preferment"], out var parsedPreferment))
+        {
+            preferment = parsedPreferment;
+        }
 
         return new GetPresetDataRequest
         {
             Preset = req.Query["preset"],
             Lang = req.Query["lang"],
             DoughBallCount = doughBallCount,
-            DoughBallWeight = doughBallWeight
+            DoughBallWeight = doughBallWeight,
+            Hydration = hydration,
+            Temperature = temperature,
+            Preferment = preferment
         };
     }
 }
