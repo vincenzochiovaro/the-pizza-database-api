@@ -46,8 +46,11 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
         }
         catch (Exception ex)
         {
-            logger.LogError(ex.Message);
-            return new StatusCodeResult(500);
+            logger.LogError(ex, "Error in GetPresetData");
+            return new ObjectResult(ex.Message)
+            {
+                StatusCode = 500
+            };
         }
     }
 
@@ -59,10 +62,14 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
         int.TryParse(req.Query["temperature"], out var temperature);
 
         if (doughBallCount <= 0 || doughBallCount > 20)
-        {
             return null;
-        }
-
+        
+        if (doughBallWeight <= 0)
+            return null;
+        
+        if (hydration < 0 || hydration > 100)
+            return null;
+        
         int? preferment = null;
         if (int.TryParse(req.Query["preferment"], out var parsedPreferment))
         {
