@@ -8,25 +8,19 @@ using ThePizzaDatabaseAPI.Models.Responses;
 
 namespace ThePizzaDatabaseAPI.Controllers;
 
-public class GetPresetData
+public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService presetsDataService)
 {
-    private readonly ILogger<GetPresetData> _logger;
-    private readonly PresetsDataService _presetsDataService;
-
-    public GetPresetData(ILogger<GetPresetData> logger, PresetsDataService presetsDataService)
-    {
-        _logger = logger;
-        _presetsDataService = presetsDataService;
-    }
-
     [Function("GetPresetData")]
     public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
         try
         {
             var request = MapRequest(req);
-            
-            var result = await _presetsDataService.GetPresetDataAsync(
+
+            if (request == null)
+                return new BadRequestObjectResult("Invalid request parameters");
+
+            var result = await presetsDataService.GetPresetDataAsync(
                 request.Preset,
                 request.Lang,
                 request.DoughBallCount,
@@ -52,18 +46,30 @@ public class GetPresetData
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex.Message);
-            throw;
+            logger.LogError(ex, "Error in GetPresetData");
+            return new ObjectResult(ex.Message)
+            {
+                StatusCode = 500
+            };
         }
     }
 
-    private static GetPresetDataRequest MapRequest(HttpRequest req)
+    private static GetPresetDataRequest? MapRequest(HttpRequest req)
     {
         int.TryParse(req.Query["doughBallCount"], out var doughBallCount);
         int.TryParse(req.Query["doughBallWeight"], out var doughBallWeight);
         int.TryParse(req.Query["hydration"], out var hydration);
         int.TryParse(req.Query["temperature"], out var temperature);
 
+        if (doughBallCount <= 0 || doughBallCount > 20)
+            return null;
+        
+        if (doughBallWeight <= 0)
+            return null;
+        
+        if (hydration < 0 || hydration > 100)
+            return null;
+        
         int? preferment = null;
         if (int.TryParse(req.Query["preferment"], out var parsedPreferment))
         {

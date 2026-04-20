@@ -6,7 +6,11 @@ public class TestFixture
 
     public TestFixture()
     {
-        Client = new HttpClient();
-        Client.BaseAddress = new Uri("http://localhost:7032/api/GetPresetData"); 
+        var baseUrl = TestSettings.GetApiUrl();
+
+        Client = new HttpClient
+        {
+            BaseAddress = new Uri(baseUrl)
+        };
     }
 }
