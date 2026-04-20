@@ -267,4 +267,4 @@ __pycache__/
 .DS_Store
 **/.DS_Store
 
-*/appsettings.Test.json
+appsettings.Test.json
