@@ -7,37 +7,32 @@ using ThePizzaDatabaseAPI.Core.Services;
 
 namespace ThePizzaDatabaseAPI.Controllers;
 
-public class GetPizzasByFilter
+public class GetPizzasByFilter(ILogger<GetPizzasByFilter> logger, PizzaService pizzaService)
 {
-    private readonly ILogger<GetPizzasByFilter> _logger;
-    private readonly PizzaService _pizzaService;
-
-    public GetPizzasByFilter(ILogger<GetPizzasByFilter> logger, PizzaService pizzaService)
-    {
-        _logger = logger;
-        _pizzaService = pizzaService;
-    }
-
     [Function("GetPizzasByFilter")]
     public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
     {
-        var filter = req.Query["filter"].ToString();
-        var lang = req.Query["lang"].ToString();
-
-        if (string.IsNullOrEmpty(filter))
+        try
         {
-            return new BadRequestObjectResult("filter is required");
-        }
-        
-        var sanitizedFilter = filter.Replace(" ", "");
-        
-       if (!Enum.TryParse<PizzaFilter>(sanitizedFilter, ignoreCase: true, out var pizzaFilter)) 
-        {
-            pizzaFilter = PizzaFilter.AllPizzas;
-        }
+            var filter = req.Query["filter"].ToString();
+            var lang = req.Query["lang"].ToString();
 
-        var result = await _pizzaService.GetPizzasByFilter(pizzaFilter, lang);
-        
-        return new OkObjectResult(result);
+            if (string.IsNullOrEmpty(filter))
+                return new BadRequestObjectResult("filter is required");
+
+            var sanitizedFilter = filter.Replace(" ", "");
+
+            if (!Enum.TryParse<PizzaFilter>(sanitizedFilter, ignoreCase: true, out var pizzaFilter))
+                pizzaFilter = PizzaFilter.AllPizzas;
+
+            var result = await pizzaService.GetPizzasByFilter(pizzaFilter, lang);
+
+            return new OkObjectResult(result);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex.Message);
+            return new StatusCodeResult(500);
+        }
     }
 }
