@@ -266,3 +266,5 @@ __pycache__/
 # macOS system files
 .DS_Store
 **/.DS_Store
+
+**/appsettings.Test.json

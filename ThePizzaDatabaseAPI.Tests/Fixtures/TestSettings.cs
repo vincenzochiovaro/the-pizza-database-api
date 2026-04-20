@@ -1,11 +1,12 @@
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 
 public static class TestSettings
 {
-    public static string GetApiKey()
-    {
-        var json = File.ReadAllText("local.settings.json");
-        using var doc = JsonDocument.Parse(json);
-        return doc.RootElement.GetProperty("Values").GetProperty("PIZZA_DB_API_KEY").GetString();
-    }
+    private static readonly IConfiguration Config = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.Test.json")
+        .Build();
+
+    public static string GetApiUrl() => Config["ApiUrl"]!;
+    public static string GetApiKey() => Config["ApiKey"]!;
 }
