@@ -1,36 +1,18 @@
 using ThePizzaDatabaseAPI.Tests.Fixtures;
 using System.Net;
+using System.Net.Http.Json;
+using ThePizzaDatabaseAPI.Core.Contracts;
 
 namespace ThePizzaDatabaseAPI.Tests.IntegrationTests;
 
 public class GetPizzasByFilterTests : IClassFixture<TestFixture>
 {
     private readonly HttpClient _client;
-
     private const string BaseUrl = "GetPizzasByFilter";
 
     public GetPizzasByFilterTests(TestFixture fixture)
     {
         _client = fixture.Client;
-    }
-
-    [Fact]
-    public async Task given_valid_filter_when_calling_api_then_returns_ok_and_data()
-    {
-        // Given
-        var url = $"{BaseUrl}?filter=AllPizzas&lang=eng";
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.Add("X-API-Key", TestSettings.GetApiKey());
-
-        // When
-        var response = await _client.SendAsync(request);
-
-        // Then
-        response.EnsureSuccessStatusCode();
-
-        var content = await response.Content.ReadAsStringAsync();
-
-        Assert.False(string.IsNullOrEmpty(content));
     }
 
     [Fact]
@@ -61,10 +43,49 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
 
         // Then
         response.EnsureSuccessStatusCode();
+        
+        var pizzas = await response.Content.ReadFromJsonAsync<List<Pizza>>();
 
-        var content = await response.Content.ReadAsStringAsync();
+        Assert.NotNull(pizzas);
+        Assert.NotEmpty(pizzas);
+    }
+    
+    [Theory]
+    [InlineData("AllPizzas")]
+    [InlineData("VegetarianPizzas")]
+    [InlineData("StuffedCrustPizzas")]
+    // [InlineData("ClassicPizzas")] todo
+    public async Task given_each_filter_when_calling_api_then_returns_expected_pizzas(string filter)
+    {
+        // Given
+        var url = $"{BaseUrl}?filter={filter}&lang=eng";
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+        request.Headers.Add("X-API-Key", TestSettings.GetApiKey());
 
-        // simple check: we still get something back
-        Assert.False(string.IsNullOrEmpty(content));
+        // When
+        var response = await _client.SendAsync(request);
+
+        // Then
+        response.EnsureSuccessStatusCode();
+
+        var pizzas = await response.Content.ReadFromJsonAsync<List<Pizza>>();
+
+        Assert.NotNull(pizzas);
+        Assert.NotEmpty(pizzas);
+
+        if (filter == "VegetarianPizzas")
+        {
+            Assert.All(pizzas, p => Assert.True(p.IsVegetarian));
+        }
+
+        if (filter == "StuffedCrustPizzas")
+        {
+            Assert.All(pizzas, p => Assert.True(p.IsStuffCrust));
+        }
+
+        // if (filter == "ClassicPizzas")
+        // {
+        //     Assert.All(pizzas, p => Assert.True(p.IsClassic));
+        // }
     }
 }
