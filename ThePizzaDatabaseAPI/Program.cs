@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ThePizzaDatabaseAPI;
 using Azure.Monitor.OpenTelemetry.Exporter;
+using Azure.Storage.Blobs;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
@@ -31,5 +32,7 @@ builder.Services.AddScoped<PresetsDataService>();
 builder.Services.AddSingleton<IMongoClient>(_ =>
     new MongoClient(Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")));
 
+builder.Services.AddSingleton<BlobServiceClient>(_ =>
+    new BlobServiceClient(Environment.GetEnvironmentVariable("BLOB_CONNECTION_STRING")));
 
 builder.Build().Run();

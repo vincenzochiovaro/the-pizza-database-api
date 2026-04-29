@@ -9,7 +9,7 @@ public class MongoCollectionExporter(
     IMongoBackupService backupService)
 {
     [Function("WeeklyMongoExport")]
-    public async Task Run([TimerTrigger("0 5 * * 3", RunOnStartup = true)] TimerInfo timer)
+    public async Task Run([TimerTrigger("0 5 * * 3", RunOnStartup = false)] TimerInfo timer)
     {
         logger.LogInformation("Weekly export job triggered at: {TriggerTime}", DateTime.UtcNow);
         

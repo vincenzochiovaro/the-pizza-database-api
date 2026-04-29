@@ -1,4 +1,5 @@
 using System.Text;
+using Azure.Storage.Blobs;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -7,10 +8,13 @@ namespace ThePizzaDatabaseAPI.Infrastructure.Backup;
 public class MongoBackupService : IMongoBackupService
 {
     private readonly IMongoDatabase _database;
+    private readonly BlobContainerClient _blobContainerClient;
 
-    public MongoBackupService(IMongoClient mongoClient)
+    public MongoBackupService(IMongoClient mongoClient, BlobServiceClient blobServiceClient)
     {
         _database = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME"));
+        
+        _blobContainerClient = blobServiceClient.GetBlobContainerClient("thepizzadatabasebackup");
     }
 
     public async Task ExportAllCollectionsAsync()
@@ -20,7 +24,16 @@ public class MongoBackupService : IMongoBackupService
         foreach (var collectionName in collections)
         {
             var collection = _database.GetCollection<BsonDocument>(collectionName);
+            
             var json = await BuildJsonAsync(collection);
+
+            var fileName = $"{collectionName}-{DateTime.UtcNow:yyyyMMdd}.json";
+
+            var blobClient = _blobContainerClient.GetBlobClient(fileName);
+
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+
+            await blobClient.UploadAsync(stream, overwrite: true);
         }
     }
     
