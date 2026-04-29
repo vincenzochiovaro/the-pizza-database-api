@@ -8,6 +8,7 @@ using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Services;
 using ThePizzaDatabaseAPI.Infrastructure;
+using ThePizzaDatabaseAPI.Infrastructure.Backup;
 using ThePizzaDatabaseAPI.Infrastructure.Utilities;
 
 var builder = FunctionsApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddOpenTelemetry()
 
 builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
 builder.Services.AddSingleton<IPresetRepository, MongoPresetRepository>();
+builder.Services.AddSingleton<IMongoBackupService, MongoBackupService>();
 builder.Services.AddScoped<IWeeklyShuffler>(_ => new WeeklyShuffler(() => DateTime.UtcNow));
 builder.Services.AddScoped<PizzaService>();
 builder.Services.AddScoped<PresetsDataService>();
