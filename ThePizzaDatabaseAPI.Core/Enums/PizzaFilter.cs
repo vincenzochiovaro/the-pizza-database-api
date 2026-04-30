@@ -4,6 +4,6 @@ public enum PizzaFilter
 {
     AllPizzas,
     VegetarianPizzas,
-    StuffedCrustPizzas,
+    WhitePizzas,
     ClassicPizzas
 }

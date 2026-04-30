@@ -88,22 +88,22 @@ public class PizzaServiceTests
     }
     
     [Fact]
-    public async Task GivenFilterIsStuffedCrustPizzas_WhenGettingPizzas_ThenOnlyStuffedCrustPizzasAreReturned()
+    public async Task GivenFilterWhitePizzas_WhenGettingPizzas_ThenOnlyWhitePizzasAreReturned()
     {
         // Given
-        var filter = PizzaFilter.StuffedCrustPizzas;
+        var filter = PizzaFilter.WhitePizzas;
         var lang = "any";
         var dummyPizzas = _fixture.Build<Pizza>()
             .CreateMany(3)
             .ToList();
 
-        dummyPizzas[0].IsStuffCrust = true;
-        dummyPizzas[1].IsStuffCrust = true;
-        dummyPizzas[2].IsStuffCrust = false;
+        dummyPizzas[0].IsWhite = true;
+        dummyPizzas[1].IsWhite = true;
+        dummyPizzas[2].IsWhite = false;
 
-        var stuffedCrustOnly = dummyPizzas.Where(pizza => pizza.IsStuffCrust).ToList();
+        var whitePizzasOnly = dummyPizzas.Where(pizza => pizza.IsWhite).ToList();
 
-        _repository.Setup(pizza => pizza.GetStuffedCrustPizzasAsync(lang)).ReturnsAsync(stuffedCrustOnly);
+        _repository.Setup(pizza => pizza.GetWhitePizzasAsync(lang)).ReturnsAsync(whitePizzasOnly);
         
         // When
         var sut = new PizzaService(_repository.Object);
@@ -111,13 +111,13 @@ public class PizzaServiceTests
         var result = await sut.GetPizzasByFilter(filter, lang);
 
         // Then
-        _repository.Verify(pizza => pizza.GetStuffedCrustPizzasAsync(lang), Times.Once);
+        _repository.Verify(pizza => pizza.GetWhitePizzasAsync(lang), Times.Once);
 
-        var stuffedCrustCount = result.Count(pizza => pizza.IsStuffCrust);
-        Assert.Equal(2, stuffedCrustCount);
+        var whitePizzasCount = result.Count(pizza => pizza.IsWhite);
+        Assert.Equal(2, whitePizzasCount);
         
         Assert.NotEmpty(result);
-        Assert.All(result, pizza => Assert.True(pizza.IsStuffCrust));
+        Assert.All(result, pizza => Assert.True(pizza.IsWhite));
     }
 
     [Fact]

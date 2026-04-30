@@ -36,12 +36,12 @@ public class MongoPizzaRepository : IPizzaRepository
         return _weeklyShuffler.Shuffle(mappedPizzas);
     }
 
-    public async Task<List<Pizza>> GetStuffedCrustPizzasAsync(string lang)
+    public async Task<List<Pizza>> GetWhitePizzasAsync(string lang)
     {
-        var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsStuffCrust, true);
+        var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsWhite, true);
 
-        var stuffCrustPizzas = await _pizzasCollection.Find(filter).ToListAsync();
-        var mappedPizzas = MapToPizzaList(stuffCrustPizzas, lang);
+        var whitePizzas = await _pizzasCollection.Find(filter).ToListAsync();
+        var mappedPizzas = MapToPizzaList(whitePizzas, lang);
 
         return _weeklyShuffler.Shuffle(mappedPizzas);
     }
@@ -60,7 +60,7 @@ public class MongoPizzaRepository : IPizzaRepository
                 Note = translation.Note,
                 Image = pizza.Image,
                 IsVegetarian = pizza.IsVegetarian,
-                IsStuffCrust = pizza.IsStuffCrust
+                IsWhite = pizza.IsWhite
             };
         }).ToList();
 
