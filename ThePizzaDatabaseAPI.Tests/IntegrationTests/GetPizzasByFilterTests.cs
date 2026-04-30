@@ -1,7 +1,7 @@
 using ThePizzaDatabaseAPI.Tests.Fixtures;
 using System.Net;
 using System.Net.Http.Json;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Models.Responses;
 
 namespace ThePizzaDatabaseAPI.Tests.IntegrationTests;
 
@@ -44,7 +44,7 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
         // Then
         response.EnsureSuccessStatusCode();
         
-        var pizzas = await response.Content.ReadFromJsonAsync<List<Pizza>>();
+        var pizzas = await response.Content.ReadFromJsonAsync<List<GetPizzasByFilterResponse>>();
 
         Assert.NotNull(pizzas);
         Assert.NotEmpty(pizzas);
@@ -53,7 +53,7 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
     [Theory]
     [InlineData("AllPizzas")]
     [InlineData("VegetarianPizzas")]
-    [InlineData("StuffedCrustPizzas")]
+    [InlineData("WhitePizzas")]
     // [InlineData("ClassicPizzas")] todo
     public async Task given_each_filter_when_calling_api_then_returns_expected_pizzas(string filter)
     {
@@ -68,7 +68,7 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
         // Then
         response.EnsureSuccessStatusCode();
 
-        var pizzas = await response.Content.ReadFromJsonAsync<List<Pizza>>();
+        var pizzas = await response.Content.ReadFromJsonAsync<List<GetPizzasByFilterResponse>>();
 
         Assert.NotNull(pizzas);
         Assert.NotEmpty(pizzas);
@@ -78,9 +78,9 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
             Assert.All(pizzas, p => Assert.True(p.IsVegetarian));
         }
 
-        if (filter == "StuffedCrustPizzas")
+        if (filter == "WhitePizzas")
         {
-            Assert.All(pizzas, p => Assert.True(p.IsStuffCrust));
+            Assert.All(pizzas, p => Assert.True(p.IsWhite));
         }
 
         // if (filter == "ClassicPizzas")

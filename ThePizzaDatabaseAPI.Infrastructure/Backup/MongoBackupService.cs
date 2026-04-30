@@ -5,17 +5,10 @@ using MongoDB.Driver;
 
 namespace ThePizzaDatabaseAPI.Infrastructure.Backup;
 
-public class MongoBackupService : IMongoBackupService
+public class MongoBackupService(IMongoClient mongoClient, BlobServiceClient blobServiceClient) : IMongoBackupService
 {
-    private readonly IMongoDatabase _database;
-    private readonly BlobContainerClient _blobContainerClient;
-
-    public MongoBackupService(IMongoClient mongoClient, BlobServiceClient blobServiceClient)
-    {
-        _database = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME"));
-        
-        _blobContainerClient = blobServiceClient.GetBlobContainerClient("thepizzadatabasebackup");
-    }
+    private readonly IMongoDatabase _database = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME"));
+    private readonly BlobContainerClient _blobContainerClient = blobServiceClient.GetBlobContainerClient("thepizzadatabasebackup");
 
     public async Task ExportAllCollectionsAsync()
     {

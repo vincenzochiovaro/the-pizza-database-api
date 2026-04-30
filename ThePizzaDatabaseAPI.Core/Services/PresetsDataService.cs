@@ -1,5 +1,5 @@
 using ThePizzaDatabaseAPI.Core.Calculators;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 
 namespace ThePizzaDatabaseAPI.Core.Services;

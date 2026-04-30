@@ -1,4 +1,4 @@
-namespace ThePizzaDatabaseAPI.Core.Contracts;
+namespace ThePizzaDatabaseAPI.Core.Domains;
 
 public class PresetDoughIngredients
 { 

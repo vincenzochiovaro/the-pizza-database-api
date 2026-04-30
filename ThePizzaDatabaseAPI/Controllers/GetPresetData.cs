@@ -47,7 +47,7 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
         catch (Exception ex)
         {
             logger.LogError(ex, "Error in GetPresetData");
-            return new ObjectResult(ex.Message)
+            return new ObjectResult("Internal server error")
             {
                 StatusCode = 500
             };
@@ -63,13 +63,13 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
 
         if (doughBallCount <= 0 || doughBallCount > 20)
             return null;
-        
+
         if (doughBallWeight <= 0)
             return null;
-        
+
         if (hydration < 0 || hydration > 100)
             return null;
-        
+
         int? preferment = null;
         if (int.TryParse(req.Query["preferment"], out var parsedPreferment))
         {
