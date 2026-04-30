@@ -1,4 +1,4 @@
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 
 namespace ThePizzaDatabaseAPI.Core.Interfaces;
 

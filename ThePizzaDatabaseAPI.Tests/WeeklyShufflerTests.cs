@@ -1,5 +1,5 @@
 using AutoFixture;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 using ThePizzaDatabaseAPI.Core.Services;
 
 namespace ThePizzaDatabaseAPI.Tests;

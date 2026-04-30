@@ -1,6 +1,6 @@
 using AutoFixture;
 using Moq;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 using ThePizzaDatabaseAPI.Core.Enums;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Services;

@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 using ThePizzaDatabaseAPI.Infrastructure.Models;
 
 namespace ThePizzaDatabaseAPI.Infrastructure;

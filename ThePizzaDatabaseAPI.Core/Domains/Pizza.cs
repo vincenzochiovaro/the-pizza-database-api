@@ -1,10 +1,10 @@
-namespace ThePizzaDatabaseAPI.Core.Contracts
+namespace ThePizzaDatabaseAPI.Core.Domains
 {
     public class Pizza
     {
-        public string? Id { get; set; }
+        public required string Id { get; set; }
         public required string Name { get; set; }
-        public string? Image { get; set; }
+        public required string Image { get; set; }
         public string? Note { get; set; }
         public bool IsVegetarian { get; set; }
         public bool IsStuffCrust { get; set; }

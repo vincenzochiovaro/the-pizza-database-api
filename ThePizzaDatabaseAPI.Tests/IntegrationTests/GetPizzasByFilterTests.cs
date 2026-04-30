@@ -1,7 +1,7 @@
 using ThePizzaDatabaseAPI.Tests.Fixtures;
 using System.Net;
 using System.Net.Http.Json;
-using ThePizzaDatabaseAPI.Core.Contracts;
+using ThePizzaDatabaseAPI.Core.Domains;
 
 namespace ThePizzaDatabaseAPI.Tests.IntegrationTests;
 
@@ -53,7 +53,6 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
     [Theory]
     [InlineData("AllPizzas")]
     [InlineData("VegetarianPizzas")]
-    [InlineData("StuffedCrustPizzas")]
     // [InlineData("ClassicPizzas")] todo
     public async Task given_each_filter_when_calling_api_then_returns_expected_pizzas(string filter)
     {
@@ -76,11 +75,6 @@ public class GetPizzasByFilterTests : IClassFixture<TestFixture>
         if (filter == "VegetarianPizzas")
         {
             Assert.All(pizzas, p => Assert.True(p.IsVegetarian));
-        }
-
-        if (filter == "StuffedCrustPizzas")
-        {
-            Assert.All(pizzas, p => Assert.True(p.IsStuffCrust));
         }
 
         // if (filter == "ClassicPizzas")

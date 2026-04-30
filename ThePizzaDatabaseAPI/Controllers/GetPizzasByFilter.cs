@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ThePizzaDatabaseAPI.Core.Enums;
 using ThePizzaDatabaseAPI.Core.Services;
+using ThePizzaDatabaseAPI.Models.Responses;
 
 namespace ThePizzaDatabaseAPI.Controllers;
 
@@ -27,7 +28,18 @@ public class GetPizzasByFilter(ILogger<GetPizzasByFilter> logger, PizzaService p
 
             var result = await pizzaService.GetPizzasByFilter(pizzaFilter, lang);
 
-            return new OkObjectResult(result);
+            var response = result.Select(pizza => new GetPizzasByFilterResponse
+            {
+                Id = pizza.Id,
+                Name = pizza.Name,
+                Image = pizza.Image,
+                IsVegetarian = pizza.IsVegetarian,
+                IsWhite = pizza.IsWhite,
+                Note = pizza.Note,
+                Ingredients = pizza.Ingredients,
+            });
+
+            return new OkObjectResult(response);
         }
         catch (Exception ex)
         {
