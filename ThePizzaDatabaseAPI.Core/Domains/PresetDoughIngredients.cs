@@ -10,5 +10,5 @@ public class PresetDoughIngredients
     public int? FlourDay2 { get; set; }
     public int? SaltDay2  { get; set; }
     public List<string> Steps { get; set; } = new();
-    public string? Tips { get; set; }
+    public required CookingTips Tips { get; set; }
 }

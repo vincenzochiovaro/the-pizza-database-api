@@ -29,6 +29,9 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
                 request.Temperature,
                 request.Preferment);
 
+            var tipsResponse = new CookingTipsResponse
+                { Home = result.Tips.Home, Professional = result.Tips.Professional };
+
             var response = new GetPresetResponse
             {
                 Water = result.Water,
@@ -39,7 +42,7 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
                 SaltDay2 = result.SaltDay2,
                 Yeast = result.Yeast,
                 Steps = result.Steps,
-                Tips = result.Tips
+                Tips = tipsResponse
             };
 
             return new OkObjectResult(response);

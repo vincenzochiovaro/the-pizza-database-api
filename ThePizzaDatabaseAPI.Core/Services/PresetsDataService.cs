@@ -23,7 +23,7 @@ public class PresetsDataService
         int? preferment)
     {
         var steps = await _presetRepository.GetStepsByPresetAndLang(presetTitle, lang);
-        var tips = "tips"; // todo call repository to retrieve tips
+        var tips = await _presetRepository.GetCookingTipsByLang(presetTitle, lang);
 
         var doughIngredients = DoughCalculator.Calculate(
             presetTitle, doughBallCount, doughBallWeight, hydration, temperature, preferment);
