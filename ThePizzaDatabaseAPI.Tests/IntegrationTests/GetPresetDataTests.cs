@@ -33,9 +33,13 @@ public class GetPresetDataTests : IClassFixture<TestFixture>
         var presetResponse = await responseMessage.Content.ReadFromJsonAsync<GetPresetResponse>();
 
         Assert.NotNull(presetResponse);
+        Assert.NotNull(presetResponse.Tips);
         Assert.NotEmpty(presetResponse.Steps);
 
-        const int expectedStepCount = 5;
+        Assert.NotEmpty(presetResponse.Tips.Home);
+        Assert.NotEmpty(presetResponse.Tips.Professional);
+
+        const int expectedStepCount = 6;
         Assert.Equal(expectedStepCount, presetResponse.Steps.Count);
         
         Assert.True(presetResponse.Flour > 0);
