@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using ThePizzaDatabaseAPI;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
+using brevo_csharp.Client;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using MongoDB.Driver;
 using ThePizzaDatabaseAPI.Core.Interfaces;
@@ -21,6 +22,8 @@ MongoConventions.RegisterConventions();
 builder.Services.AddOpenTelemetry()
     .UseFunctionsWorkerDefaults()
     .UseAzureMonitorExporter();
+
+Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoApi:ApiKey"]);
 
 builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
 builder.Services.AddSingleton<IPresetRepository, MongoPresetRepository>();
