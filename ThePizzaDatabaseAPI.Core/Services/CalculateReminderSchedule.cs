@@ -1,0 +1,12 @@
+using ThePizzaDatabaseAPI.Core.Domains;
+using ThePizzaDatabaseAPI.Core.Interfaces;
+
+namespace ThePizzaDatabaseAPI.Core.Services;
+
+public class CalculateReminderSchedule : ICalculateReminderSchedule
+{
+    public ReminderSchedule CalculateTimings(string date, string time, string preset)
+    {
+        throw new NotImplementedException();
+    }
+}
