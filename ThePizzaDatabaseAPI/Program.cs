@@ -31,6 +31,7 @@ builder.Services.AddSingleton<IMongoBackupService, MongoBackupService>();
 builder.Services.AddScoped<IWeeklyShuffler>(_ => new WeeklyShuffler(() => DateTime.UtcNow));
 builder.Services.AddScoped<PizzaService>();
 builder.Services.AddScoped<PresetsDataService>();
+builder.Services.AddScoped<ICalculateReminderSchedule, CalculateReminderSchedule>();
 
 builder.Services.AddSingleton<IMongoClient>(_ =>
     new MongoClient(Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")));
