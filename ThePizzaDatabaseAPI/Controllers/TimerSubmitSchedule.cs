@@ -19,7 +19,7 @@ public class TimerSubmitSchedule
         _calculateReminderSchedule = calculateReminderSchedule;
     }
 
-    [Function("SubmitScheduleRequest")]
+    [Function("TimerSubmitSchedule")]
     public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req)
     {
         var request = await req.ReadFromJsonAsync<TimerSubmitScheduleRequest>();
