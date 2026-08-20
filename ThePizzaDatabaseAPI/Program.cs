@@ -25,9 +25,9 @@ builder.Services.AddOpenTelemetry()
 
 Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoApi:ApiKey"]);
 
-builder.Services.AddSingleton<IPizzaRepository, MongoPizzaRepository>();
 builder.Services.AddSingleton<IPresetRepository, MongoPresetRepository>();
 builder.Services.AddSingleton<IMongoBackupService, MongoBackupService>();
+builder.Services.AddScoped<IPizzaRepository, MongoPizzaRepository>();
 builder.Services.AddScoped<IWeeklyShuffler>(_ => new WeeklyShuffler(() => DateTime.UtcNow));
 builder.Services.AddScoped<PizzaService>();
 builder.Services.AddScoped<PresetsDataService>();
