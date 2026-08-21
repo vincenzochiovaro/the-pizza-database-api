@@ -7,6 +7,11 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
 {
     public ReminderSchedule CalculateTimings(string date, string time, string preset)
     {
-        throw new NotImplementedException();
+        return new ReminderSchedule()
+        {
+            FirstRoundTime = new DateTime(),
+            SecondRoundTime = new DateTime(),
+            ThirdRoundTime = new DateTime()
+        };
     }
 }

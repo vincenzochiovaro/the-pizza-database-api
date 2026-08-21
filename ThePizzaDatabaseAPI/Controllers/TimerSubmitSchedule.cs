@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.DurableTask.Client;
 using ThePizzaDatabaseAPI.Core.Interfaces;
 using ThePizzaDatabaseAPI.Core.Services;
+using ThePizzaDatabaseAPI.Models.Messages;
 using ThePizzaDatabaseAPI.Models.Requests;
+using ThePizzaDatabaseAPI.Orchestrators;
 
 namespace ThePizzaDatabaseAPI.Controllers;
 
@@ -32,34 +34,21 @@ public class TimerSubmitSchedule
             return new BadRequestObjectResult("Invalid request body.");
         }
 
-        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
-            "ReminderOrchestrator",
-            request);
-        
         var reminders = _calculateReminderSchedule.CalculateTimings(request.Date, request.Time, request.Preset);
         // todo Implement service
 
-
-        // TODO START - create Service x to retrieve all email information based on the current stage (durable function)
-        // todo: add all env variables to cloud
-        var recipientEmail = request.Email;
-        var recipetSubject = "subject";
-        var recipientBody = "recBody";
-        var senderName = Environment.GetEnvironmentVariable("BrevoApi:SenderName");
-        var senderEmail = Environment.GetEnvironmentVariable("BrevoApi:SenderEmail");
-        if (string.IsNullOrWhiteSpace(senderName) ||
-            string.IsNullOrWhiteSpace(senderEmail))
+        var emailReminderMsg = new ReminderScheduleMessage()
         {
-            throw new InvalidOperationException("Email sender configuration is missing.");
-        }
+            Email = request.Email,
+            Reminders = reminders
+        };
+        
+        
+        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
+            nameof(ReminderOrchestrator),
+            emailReminderMsg);
+        
 
-        EmailSender.SendEmail(
-            senderName,
-            senderEmail,
-            recipientEmail,
-            recipetSubject,
-            recipientBody);
-        // TODO END
 
 
         _logger.LogInformation("C# HTTP trigger function processed a request.");
