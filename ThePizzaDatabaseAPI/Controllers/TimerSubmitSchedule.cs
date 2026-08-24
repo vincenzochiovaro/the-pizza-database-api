@@ -27,26 +27,30 @@ public class TimerSubmitSchedule
         [DurableClient] DurableTaskClient client)
     {
         var request = await req.ReadFromJsonAsync<TimerSubmitScheduleRequest>();
-        // todo: validation: e.g remove whiteSpaces
         if (request is null)
         {
             return new BadRequestObjectResult("Invalid request body.");
         }
 
         var reminders = _calculateReminderSchedule.CalculateTimings(request.Date, request.Time, request.Preset);
-        // todo Implement service
 
         var emailReminderMsg = new ReminderScheduleMessage()
         {
             Email = request.Email,
-            Reminders = reminders
+            Reminders = reminders,
+            Preset = request.Preset
         };
 
-        await client.ScheduleNewOrchestrationInstanceAsync(
+        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
             nameof(ReminderOrchestrator),
             emailReminderMsg);
 
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-        return new OkObjectResult("Welcome to Azure Functions!");
+        return new ObjectResult(new
+        {
+            InstanceId = instanceId
+        })
+        {
+            StatusCode = 202
+        };
     }
 }

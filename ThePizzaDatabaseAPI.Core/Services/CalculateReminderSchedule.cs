@@ -17,8 +17,4 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
     }
 }
 
-// todo
-
-// TODO WRITE A TEST TO COVER ALL THE THREE TIMES
-// IMPROVE INTEGRATION TESTS ENVIRONMENT DECOUPLE
-// RUN TESTS ON PR RAISED. 
+// todo - implement logic. + unit tests

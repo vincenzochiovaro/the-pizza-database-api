@@ -21,6 +21,7 @@ public class ReminderOrchestrator
             new SendEmailMessage
             {
                 RecipientEmail = schedule.Email,
+                Preset = schedule.Preset,
                 Reminders = schedule.Reminders,
                 Round = ReminderRound.First
             });
@@ -32,6 +33,7 @@ public class ReminderOrchestrator
             new SendEmailMessage
             {
                 RecipientEmail = schedule.Email,
+                Preset = schedule.Preset,
                 Reminders = schedule.Reminders,
                 Round = ReminderRound.Second
             });
@@ -43,6 +45,7 @@ public class ReminderOrchestrator
             new SendEmailMessage
             {
                 RecipientEmail = schedule.Email,
+                Preset = schedule.Preset,
                 Reminders = schedule.Reminders,
                 Round = ReminderRound.Third
             });
