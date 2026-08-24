@@ -21,7 +21,30 @@ public class ReminderOrchestrator
             new SendEmailMessage
             {
                 RecipientEmail = schedule.Email,
-                Reminders = schedule.Reminders
+                Reminders = schedule.Reminders,
+                Round = ReminderRound.First
+            });
+
+        await context.CreateTimer(schedule.Reminders.SecondRoundTime, CancellationToken.None);
+
+        await context.CallActivityAsync(
+            nameof(SendEmailActivity),
+            new SendEmailMessage
+            {
+                RecipientEmail = schedule.Email,
+                Reminders = schedule.Reminders,
+                Round = ReminderRound.Second
+            });
+
+        await context.CreateTimer(schedule.Reminders.ThirdRoundTime, CancellationToken.None);
+
+        await context.CallActivityAsync(
+            nameof(SendEmailActivity),
+            new SendEmailMessage
+            {
+                RecipientEmail = schedule.Email,
+                Reminders = schedule.Reminders,
+                Round = ReminderRound.Third
             });
     }
 }

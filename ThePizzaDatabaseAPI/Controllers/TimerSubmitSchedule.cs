@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DurableTask.Client;
 using ThePizzaDatabaseAPI.Core.Interfaces;
-using ThePizzaDatabaseAPI.Core.Services;
 using ThePizzaDatabaseAPI.Models.Messages;
 using ThePizzaDatabaseAPI.Models.Requests;
 using ThePizzaDatabaseAPI.Orchestrators;
@@ -42,14 +41,10 @@ public class TimerSubmitSchedule
             Email = request.Email,
             Reminders = reminders
         };
-        
-        
-        var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
+
+        await client.ScheduleNewOrchestrationInstanceAsync(
             nameof(ReminderOrchestrator),
             emailReminderMsg);
-        
-
-
 
         _logger.LogInformation("C# HTTP trigger function processed a request.");
         return new OkObjectResult("Welcome to Azure Functions!");

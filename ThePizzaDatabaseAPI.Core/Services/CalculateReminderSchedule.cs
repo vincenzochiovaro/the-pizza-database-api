@@ -7,11 +7,18 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
 {
     public ReminderSchedule CalculateTimings(string date, string time, string preset)
     {
+        var now = DateTime.UtcNow;
         return new ReminderSchedule()
         {
-            FirstRoundTime = new DateTime(),
-            SecondRoundTime = new DateTime(),
-            ThirdRoundTime = new DateTime()
+            FirstRoundTime = now,
+            SecondRoundTime = now.AddMinutes(1),
+            ThirdRoundTime = now.AddMinutes(2)
         };
     }
 }
+
+// todo
+
+// TODO WRITE A TEST TO COVER ALL THE THREE TIMES
+// IMPROVE INTEGRATION TESTS ENVIRONMENT DECOUPLE
+// RUN TESTS ON PR RAISED. 
