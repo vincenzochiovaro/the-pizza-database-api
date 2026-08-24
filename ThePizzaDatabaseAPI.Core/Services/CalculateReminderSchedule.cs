@@ -7,6 +7,14 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
 {
     public ReminderSchedule CalculateTimings(string date, string time, string preset)
     {
-        throw new NotImplementedException();
+        var now = DateTime.UtcNow;
+        return new ReminderSchedule()
+        {
+            FirstRoundTime = now,
+            SecondRoundTime = now.AddMinutes(1),
+            ThirdRoundTime = now.AddMinutes(2)
+        };
     }
 }
+
+// todo - implement logic. + unit tests
