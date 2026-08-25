@@ -5,7 +5,8 @@ using ThePizzaDatabaseAPI.Models.Responses;
 
 namespace ThePizzaDatabaseAPI.Tests.IntegrationTests;
 
-public class GetPresetDataTests : IClassFixture<TestFixture>
+[Collection("IntegrationTests")]
+public class GetPresetDataTests
 {
     private readonly HttpClient _client;
 
