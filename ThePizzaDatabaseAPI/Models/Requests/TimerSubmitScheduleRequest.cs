@@ -1,3 +1,5 @@
+using ThePizzaDatabaseAPI.Core.Enums;
+
 namespace ThePizzaDatabaseAPI.Models.Requests;
 
 public class TimerSubmitScheduleRequest
@@ -8,7 +10,7 @@ public class TimerSubmitScheduleRequest
 
     public required string Email { get; set; }
 
-    public required string Preset { get; set; }
+    public required PizzaPreset Preset { get; set; }
 
     public required DoughIngredients PresetData { get; set; }
 

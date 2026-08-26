@@ -1,4 +1,5 @@
 using ThePizzaDatabaseAPI.Core.Domains;
+using ThePizzaDatabaseAPI.Core.Enums;
 
 namespace ThePizzaDatabaseAPI.Models.Messages;
 
@@ -6,6 +7,6 @@ public class ReminderScheduleMessage
 {
     public required string Email { get; set; }
 
-    public required string Preset { get; set; }
+    public PizzaPreset  Preset { get; set; }
     public required ReminderSchedule Reminders { get; set; }
 }
