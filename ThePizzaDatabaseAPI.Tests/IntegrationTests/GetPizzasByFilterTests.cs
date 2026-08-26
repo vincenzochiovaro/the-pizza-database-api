@@ -5,7 +5,8 @@ using ThePizzaDatabaseAPI.Models.Responses;
 
 namespace ThePizzaDatabaseAPI.Tests.IntegrationTests;
 
-public class GetPizzasByFilterTests : IClassFixture<TestFixture>
+[Collection("IntegrationTests")]
+public class GetPizzasByFilterTests
 {
     private readonly HttpClient _client;
     private const string BaseUrl = "GetPizzasByFilter";
