@@ -89,13 +89,13 @@ public class MongoPizzaRepositoryMappingTests
         Assert.True(pizza.IsVegetarian);
     }
     
-    private List<Pizza> MapToPizzaListForTest(List<PizzaDocument> pizzaDocs, string lang)
+    private List<PizzaDomain> MapToPizzaListForTest(List<PizzaDocument> pizzaDocs, string lang)
     {
         return pizzaDocs.Select(pizza =>
         {
             var translation = lang.ToLower() == "it" ? pizza.Translations.It : pizza.Translations.En;
 
-            return new Pizza
+            return new PizzaDomain
             {
                 Id = pizza.Id,
                 Name = translation.Name,

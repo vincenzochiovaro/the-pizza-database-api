@@ -1,6 +1,6 @@
 namespace ThePizzaDatabaseAPI.Core.Domains;
 
-public class PresetDoughIngredients
+public class PresetDoughIngredientsDomain
 { 
     public int Water { get; set; }
     public int Flour { get; set; }
@@ -10,5 +10,5 @@ public class PresetDoughIngredients
     public int? FlourDay2 { get; set; }
     public int? SaltDay2  { get; set; }
     public List<string> Steps { get; set; } = new();
-    public required CookingTips Tips { get; set; }
+    public required CookingTipsDomain TipsDomain { get; set; }
 }

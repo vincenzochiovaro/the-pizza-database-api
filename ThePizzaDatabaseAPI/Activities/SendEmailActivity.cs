@@ -11,8 +11,8 @@ public class SendEmailActivity
     {
         // todo
         var recipientEmail = emailMessage.RecipientEmail;
-        var recipetSubject = "subject";
-        var recipientBody = "recBody";
+        // var reminderdetails = service layer ->  infrastructure mongocall by preset
+
         var senderName = Environment.GetEnvironmentVariable("BrevoApi:SenderName");
         var senderEmail = Environment.GetEnvironmentVariable("BrevoApi:SenderEmail");
         if (string.IsNullOrWhiteSpace(senderName) ||
@@ -25,13 +25,12 @@ public class SendEmailActivity
         {
             case ReminderRound.First:
                 Console.WriteLine("sendimg email.. --FIRST ROUND");
-                        
                 EmailSender.SendEmail(
                     senderName,
                     senderEmail,
                     recipientEmail,
-                    recipetSubject,
-                    recipientBody);
+                    "todoSubject", // reminderdetails.Rounds.Round1.{En/it}.Subject
+                    "todoBody");// reminderdetails.Rounds.Round1.{En/it}.Body
                 
                 break;
             case ReminderRound.Second:
@@ -41,8 +40,8 @@ public class SendEmailActivity
                     senderName,
                     senderEmail,
                     recipientEmail,
-                    recipetSubject,
-                    recipientBody);
+                    "todoSubject",// reminderdetails.Rounds.Round2.{En/it}.Subject
+                    "todoBody"); // reminderdetails.Rounds.Round2.{En/it}.Body
                 
                 break;
             case ReminderRound.Third:
@@ -52,8 +51,8 @@ public class SendEmailActivity
                     senderName,
                     senderEmail,
                     recipientEmail,
-                    recipetSubject,
-                    recipientBody);
+                    "todoSubject", // reminderdetails.Rounds.Round3.{En/it}.Subject
+                    "todoBody"); // reminderdetails.Rounds.Round3.{En/it}.Body
                 
                 break;
         }

@@ -15,7 +15,7 @@ public class WeeklyShuffler : IWeeklyShuffler
         _now = now ?? (() => DateTime.UtcNow);
     }
 
-    public List<Pizza> Shuffle(List<Pizza> pizzas)
+    public List<PizzaDomain> Shuffle(List<PizzaDomain> pizzas)
     {
         var seed = GetWeeklySeed(_now());
         var weeklyOrderGenerator = new Random(seed);

@@ -18,7 +18,7 @@ public class PizzaServiceTests
         // Given
         var filter =  (PizzaFilter)999;
         var lang = "any";
-        var dummyPizzas = _fixture.Build<Pizza>()
+        var dummyPizzas = _fixture.Build<PizzaDomain>()
             .CreateMany(2)
             .ToList();
 
@@ -39,7 +39,7 @@ public class PizzaServiceTests
         // Given
         var filter = PizzaFilter.AllPizzas;
         var lang = "any";
-        var dummyPizzas = _fixture.Build<Pizza>()
+        var dummyPizzas = _fixture.Build<PizzaDomain>()
             .CreateMany(2)
             .ToList();
 
@@ -60,7 +60,7 @@ public class PizzaServiceTests
         // Given
         var filter = PizzaFilter.VegetarianPizzas;
         var lang = "any";
-        var dummyPizzas = _fixture.Build<Pizza>()
+        var dummyPizzas = _fixture.Build<PizzaDomain>()
             .CreateMany(3)
             .ToList();
         
@@ -93,7 +93,7 @@ public class PizzaServiceTests
         // Given
         var filter = PizzaFilter.WhitePizzas;
         var lang = "any";
-        var dummyPizzas = _fixture.Build<Pizza>()
+        var dummyPizzas = _fixture.Build<PizzaDomain>()
             .CreateMany(3)
             .ToList();
 

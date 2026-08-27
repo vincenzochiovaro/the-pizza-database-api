@@ -32,6 +32,8 @@ public class TimerSubmitSchedule
             return new BadRequestObjectResult("Invalid request body.");
         }
 
+        var isUserEmailVerified = true; // todo 
+        
         var reminders = _calculateReminderSchedule.CalculateTimings(request.Date, request.Time, request.Preset);
 
         var emailReminderMsg = new ReminderScheduleMessage()

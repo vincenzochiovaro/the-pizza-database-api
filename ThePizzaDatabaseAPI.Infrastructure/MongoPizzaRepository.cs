@@ -18,7 +18,7 @@ public class MongoPizzaRepository : IPizzaRepository
         _weeklyShuffler = weeklyShuffler;
     }
 
-    public async Task<List<Pizza>> GetAllAsync(string lang)
+    public async Task<List<PizzaDomain>> GetAllAsync(string lang)
     {
         var allPizzas = await _pizzasCollection.Find(_ => true).ToListAsync();
         var mappedPizzas = MapToPizzaList(allPizzas, lang);
@@ -26,7 +26,7 @@ public class MongoPizzaRepository : IPizzaRepository
         return _weeklyShuffler.Shuffle(mappedPizzas);
     }
 
-    public async Task<List<Pizza>> GetVegPizzasAsync(string lang)
+    public async Task<List<PizzaDomain>> GetVegPizzasAsync(string lang)
     {
         var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsVegetarian, true);
 
@@ -36,7 +36,7 @@ public class MongoPizzaRepository : IPizzaRepository
         return _weeklyShuffler.Shuffle(mappedPizzas);
     }
 
-    public async Task<List<Pizza>> GetWhitePizzasAsync(string lang)
+    public async Task<List<PizzaDomain>> GetWhitePizzasAsync(string lang)
     {
         var filter = Builders<PizzaDocument>.Filter.Eq(pizza => pizza.IsWhite, true);
 
@@ -46,13 +46,13 @@ public class MongoPizzaRepository : IPizzaRepository
         return _weeklyShuffler.Shuffle(mappedPizzas);
     }
 
-    private List<Pizza> MapToPizzaList(List<PizzaDocument> allPizzas, string lang)
+    private List<PizzaDomain> MapToPizzaList(List<PizzaDocument> allPizzas, string lang)
     {
         var pizzas = allPizzas.Select(pizza =>
         {
             var translation = lang.ToLower() == "it" ? pizza.Translations.It : pizza.Translations.En;
 
-            return new Pizza
+            return new PizzaDomain
             {
                 Id = pizza.Id,
                 Name = translation.Name,
