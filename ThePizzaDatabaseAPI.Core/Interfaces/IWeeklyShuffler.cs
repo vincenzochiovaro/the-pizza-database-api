@@ -4,5 +4,5 @@ namespace ThePizzaDatabaseAPI.Core.Interfaces;
 
 public interface IWeeklyShuffler
 {
-    List<Pizza> Shuffle(List<Pizza> pizzas);
+    List<PizzaDomain> Shuffle(List<PizzaDomain> pizzas);
 }

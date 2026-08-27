@@ -12,7 +12,7 @@ public class WeeklyShufflerTests
     public void GivenSameWeek_WhenShuffleTwice_ThenOrderIsTheSame()
     {
         // Given
-        var pizzas = _fixture.Create<List<Pizza>>();
+        var pizzas = _fixture.Create<List<PizzaDomain>>();
         var fixedWeek = new DateTime(2026, 2, 9); // week 7
 
         var sut = new WeeklyShuffler(() => fixedWeek);
@@ -29,7 +29,7 @@ public class WeeklyShufflerTests
     public void GivenDifferentWeeks_WhenShuffle_ThenOrderIsDifferent()
     {
         // Given
-        var pizzas = _fixture.Create<List<Pizza>>();
+        var pizzas = _fixture.Create<List<PizzaDomain>>();
 
         var weekOne = new WeeklyShuffler(() => new DateTime(2026, 2, 9));  // week 7
         var weekTwo = new WeeklyShuffler(() => new DateTime(2026, 2, 16)); // week 8
@@ -46,7 +46,7 @@ public class WeeklyShufflerTests
     public void GivenAnyWeek_WhenShuffle_ThenAllPizzasArePreserved()
     {
         // Given
-        var pizzas = _fixture.Create<List<Pizza>>();
+        var pizzas = _fixture.Create<List<PizzaDomain>>();
         var sut = new WeeklyShuffler(() => new DateTime(2026, 2, 9));
 
         // When

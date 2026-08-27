@@ -13,7 +13,7 @@ public class PizzaService
         _repository = repository;
     }
 
-    public async Task<List<Pizza>> GetPizzasByFilter(PizzaFilter filter, string lang)
+    public async Task<List<PizzaDomain>> GetPizzasByFilter(PizzaFilter filter, string lang)
     {
         if (filter == PizzaFilter.AllPizzas)
             return await _repository.GetAllAsync(lang);
