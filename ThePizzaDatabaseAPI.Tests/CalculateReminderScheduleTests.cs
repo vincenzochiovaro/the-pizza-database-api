@@ -36,7 +36,7 @@ public class CalculateReminderScheduleTests
 
         // Assert
         Assert.Equal(
-            result.ThirdRoundTime.AddHours(-8).AddMinutes(-10),
+            result.ThirdRoundTime.AddHours(-8),
             result.FirstRoundTime);
     }
 
@@ -149,9 +149,7 @@ public class CalculateReminderScheduleTests
         var result = _sut.CalculateTimings(date, time, preset);
 
         // Assert
-        Assert.Equal(
-            result.ThirdRoundTime.AddHours(-2),
-            result.SecondRoundTime);
+        Assert.Equal(result.ThirdRoundTime.AddHours(-2), result.SecondRoundTime);
     }
 
     [Fact]
@@ -173,46 +171,55 @@ public class CalculateReminderScheduleTests
         Assert.Equal(expected, bigaResult.ThirdRoundTime);
         Assert.Equal(expected, expressResult.ThirdRoundTime);
     }
-
+    
     [Fact]
-    public void CalculateTimings_Biga_WhenSelectedTimeIsLessThan20HoursFromNow_ThrowsException()
+    public void CalculateTimings_Direct_WhenSelectedTimeIsAt01_ReturnsFirstRoundOnPreviousDay()
     {
         // Arrange
-        var selectedDateTime = DateTime.UtcNow.AddHours(19);
+        const string date = "2026-08-27";
+        const string time = "01:00";
+        const PizzaPreset preset = PizzaPreset.Direct;
 
-        var date = selectedDateTime.ToString("yyyy-MM-dd");
-        var time = selectedDateTime.ToString("HH:mm");
+        // Act
+        var result = _sut.CalculateTimings(date, time, preset);
 
-        // Act & Assert
-        Assert.Throws<Exception>(() =>
-            _sut.CalculateTimings(date, time, PizzaPreset.Biga));
+        // Assert
+        var expected = new DateTime(2026, 8, 26, 17, 00, 0);
+
+        Assert.Equal(expected, result.FirstRoundTime);
     }
 
     [Fact]
-    public void CalculateTimings_Direct_WhenSelectedTimeIsLessThanRequiredMinimumFromNow_ThrowsException()
+    public void CalculateTimings_Biga_WhenSelectedTimeIsAt01_ReturnsFirstRoundOnPreviousDay()
     {
         // Arrange
-        var selectedDateTime = DateTime.UtcNow.AddHours(8);
+        const string date = "2026-08-27";
+        const string time = "01:00";
+        const PizzaPreset preset = PizzaPreset.Biga;
 
-        var date = selectedDateTime.ToString("yyyy-MM-dd");
-        var time = selectedDateTime.ToString("HH:mm");
+        // Act
+        var result = _sut.CalculateTimings(date, time, preset);
 
-        // Act & Assert
-        Assert.Throws<Exception>(() =>
-            _sut.CalculateTimings(date, time, PizzaPreset.Direct));
+        // Assert
+        var expected = new DateTime(2026, 8, 26, 07, 00, 0);
+
+        Assert.Equal(expected, result.FirstRoundTime);
     }
 
     [Fact]
-    public void CalculateTimings_Express_WhenSelectedTimeIsLessThanRequiredMinimumFromNow_ThrowsException()
+    public void CalculateTimings_Express_WhenSelectedTimeIsAt01_ReturnsFirstRoundOnPreviousDay()
     {
         // Arrange
-        var selectedDateTime = DateTime.UtcNow.AddHours(2);
+        const string date = "2026-08-27";
+        const string time = "01:00";
+        const PizzaPreset preset = PizzaPreset.Express;
 
-        var date = selectedDateTime.ToString("yyyy-MM-dd");
-        var time = selectedDateTime.ToString("HH:mm");
+        // Act
+        var result = _sut.CalculateTimings(date, time, preset);
 
-        // Act & Assert
-        Assert.Throws<Exception>(() =>
-            _sut.CalculateTimings(date, time, PizzaPreset.Express));
+        // Assert
+        var expected = new DateTime(2026, 8, 26, 22, 00, 0);
+
+        Assert.Equal(expected, result.FirstRoundTime);
     }
 }
