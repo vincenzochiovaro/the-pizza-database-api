@@ -24,7 +24,7 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
     private static readonly TimeSpan ExpressSecondRoundOffset =
         TimeSpan.FromHours(2);
 
-    public ReminderSchedule CalculateTimings(
+    public ReminderScheduleDomain CalculateTimings(
         string date,
         string time,
         PizzaPreset preset)
@@ -41,7 +41,7 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
             secondRoundTime,
             bakingTime);
 
-        return new ReminderSchedule
+        return new ReminderScheduleDomain
         {
             FirstRoundTime = firstRoundTime,
             SecondRoundTime = secondRoundTime,

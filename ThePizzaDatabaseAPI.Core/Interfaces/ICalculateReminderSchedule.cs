@@ -5,5 +5,5 @@ namespace ThePizzaDatabaseAPI.Core.Interfaces;
 
 public interface ICalculateReminderSchedule
 {
-    ReminderSchedule CalculateTimings(string date, string time, PizzaPreset preset);
+    ReminderScheduleDomain CalculateTimings(string date, string time, PizzaPreset preset);
 }

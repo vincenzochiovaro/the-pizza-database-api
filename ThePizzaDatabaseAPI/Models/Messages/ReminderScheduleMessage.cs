@@ -8,5 +8,5 @@ public class ReminderScheduleMessage
     public required string Email { get; set; }
 
     public PizzaPreset  Preset { get; set; }
-    public required ReminderSchedule Reminders { get; set; }
+    public required ReminderScheduleDomain Reminders { get; set; }
 }

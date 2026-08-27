@@ -13,7 +13,7 @@ public class PresetsDataService
         _presetRepository = presetRepository;
     }
 
-    public async Task<PresetDoughIngredients> GetPresetDataAsync(
+    public async Task<PresetDoughIngredientsDomain> GetPresetDataAsync(
         string presetTitle,
         string lang,
         int doughBallCount,
@@ -28,7 +28,7 @@ public class PresetsDataService
         var doughIngredients = DoughCalculator.Calculate(
             presetTitle, doughBallCount, doughBallWeight, hydration, temperature, preferment);
 
-        return new PresetDoughIngredients
+        return new PresetDoughIngredientsDomain
         {
             Water = doughIngredients.Water,
             Flour = doughIngredients.Flour,
