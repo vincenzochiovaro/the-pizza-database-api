@@ -28,7 +28,7 @@ public class MongoPresetRepository : IPresetRepository
             : preset.Steps.En;
     }
 
-    public async Task<CookingTips> GetCookingTipsByLang(string presetTitle, string lang)
+    public async Task<CookingTipsDomain> GetCookingTipsByLang(string presetTitle, string lang)
     {
         var filter = Builders<PresetDocument>.Filter.Eq(p => p.Title, presetTitle);
         var preset = await _presetsCollection.Find(filter).FirstOrDefaultAsync();
@@ -37,7 +37,7 @@ public class MongoPresetRepository : IPresetRepository
             ? preset.CookingTips.It
             : preset.CookingTips.En;
 
-        return new CookingTips
+        return new CookingTipsDomain
         {
             Home = tips.Home,
             Professional = tips.Professional

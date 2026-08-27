@@ -30,7 +30,7 @@ public class GetPresetData(ILogger<GetPresetData> logger, PresetsDataService pre
                 request.Preferment);
 
             var tipsResponse = new CookingTipsResponse
-                { Home = result.Tips.Home, Professional = result.Tips.Professional };
+                { Home = result.TipsDomain.Home, Professional = result.TipsDomain.Professional };
 
             var response = new GetPresetResponse
             {

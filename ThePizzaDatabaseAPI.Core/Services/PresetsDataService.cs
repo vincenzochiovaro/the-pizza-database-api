@@ -38,7 +38,7 @@ public class PresetsDataService
             FlourDay2 = doughIngredients.FlourDay2,
             SaltDay2 = doughIngredients.SaltDay2,
             Steps = steps,
-            Tips = tips
+            TipsDomain = tips
         };
     }
 }
