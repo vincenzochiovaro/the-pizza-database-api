@@ -6,7 +6,10 @@ namespace ThePizzaDatabaseAPI.Models.Messages;
 public class ReminderScheduleMessage
 {
     public required string Email { get; set; }
+    
+    public required Language Lang { get; set; }
 
-    public PizzaPreset  Preset { get; set; }
+    public required PizzaPreset  Preset { get; set; }
+    public required MixingType MixingType { get; set; }
     public required ReminderScheduleDomain Reminders { get; set; }
 }

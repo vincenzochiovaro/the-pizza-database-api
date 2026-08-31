@@ -11,6 +11,8 @@ public class SendEmailActivity
     {
         // todo
         var recipientEmail = emailMessage.RecipientEmail;
+        var mixingType =  emailMessage.MixingType;
+        var lang = emailMessage.Lang;
         // var reminderdetails = service layer ->  infrastructure mongocall by preset
 
         var senderName = Environment.GetEnvironmentVariable("BrevoApi:SenderName");
@@ -29,8 +31,8 @@ public class SendEmailActivity
                     senderName,
                     senderEmail,
                     recipientEmail,
-                    "todoSubject", // reminderdetails.Rounds.Round1.{En/it}.Subject
-                    "todoBody");// reminderdetails.Rounds.Round1.{En/it}.Body
+                    "todoSubject", // reminderdetails.Rounds.Round1.{En/it}.Hands.Subject
+                    "todoBody");// reminderdetails.Rounds.Round1.{En/it}.Hands.Body
                 
                 break;
             case ReminderRound.Second:
@@ -40,8 +42,8 @@ public class SendEmailActivity
                     senderName,
                     senderEmail,
                     recipientEmail,
-                    "todoSubject",// reminderdetails.Rounds.Round2.{En/it}.Subject
-                    "todoBody"); // reminderdetails.Rounds.Round2.{En/it}.Body
+                    "todoSubject",// reminderdetails.Rounds.Round2.{En/it}.Hands.Subject
+                    "todoBody"); // reminderdetails.Rounds.Round2.{En/it}.Hands.Body
                 
                 break;
             case ReminderRound.Third:

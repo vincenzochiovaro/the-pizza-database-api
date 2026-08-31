@@ -40,7 +40,9 @@ public class TimerSubmitSchedule
         {
             Email = request.Email,
             Reminders = reminders,
-            Preset = request.Preset
+            Preset = request.Preset,
+            Lang = request.Lang,
+            MixingType = request.MixingType,
         };
 
         var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(
