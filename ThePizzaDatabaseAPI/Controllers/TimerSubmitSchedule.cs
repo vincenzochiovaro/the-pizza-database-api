@@ -42,6 +42,7 @@ public class TimerSubmitSchedule
             Reminders = reminders,
             Preset = request.Preset,
             Lang = request.Lang,
+            PresetData = request.PresetData,
             MixingType = request.MixingType,
         };
 

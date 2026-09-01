@@ -33,13 +33,14 @@ public class CalculateReminderSchedule : ICalculateReminderSchedule
 
         var offsets = GetOffsetsByPreset(preset);
 
-        var firstRoundTime = bakingTime.Subtract(offsets.FirstRoundOffset);
+        var now1 = DateTime.Now;
+        var firstRoundTime = now1;
         var secondRoundTime = bakingTime.Subtract(offsets.SecondRoundOffset);
 
-        ValidateSchedule(
-            firstRoundTime,
-            secondRoundTime,
-            bakingTime);
+        // ValidateSchedule(
+        //     firstRoundTime,
+        //     secondRoundTime,
+        //     bakingTime);
 
         return new ReminderScheduleDomain
         {
