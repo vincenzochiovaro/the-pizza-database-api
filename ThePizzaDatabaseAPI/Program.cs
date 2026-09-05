@@ -33,11 +33,13 @@ Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoApi:ApiK
 
 builder.Services.AddSingleton<IPresetRepository, MongoPresetRepository>();
 builder.Services.AddSingleton<IMongoBackupService, MongoBackupService>();
+builder.Services.AddSingleton<ReminderEmailTemplate>();
 builder.Services.AddScoped<IPizzaRepository, MongoPizzaRepository>();
 builder.Services.AddScoped<IWeeklyShuffler>(_ => new WeeklyShuffler(() => DateTime.UtcNow));
 builder.Services.AddScoped<PizzaService>();
 builder.Services.AddScoped<PresetsDataService>();
 builder.Services.AddScoped<ICalculateReminderSchedule, CalculateReminderSchedule>();
+builder.Services.AddScoped<IReminderMessageRepository, ReminderMessageRepository>();
 
 builder.Services.AddSingleton<IMongoClient>(_ =>
     new MongoClient(Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")));

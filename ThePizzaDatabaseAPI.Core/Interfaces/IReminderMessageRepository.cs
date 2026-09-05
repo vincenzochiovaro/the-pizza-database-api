@@ -1,6 +1,8 @@
+using ThePizzaDatabaseAPI.Core.Domains;
+
 namespace ThePizzaDatabaseAPI.Core.Interfaces;
 
-public class IReminderMessageRepository
+public interface IReminderMessageRepository
 {
-    // Task<ReminderMessage> GetByPresetAsync(string preset);
+    Task<ReminderMessageDomain> GetByPresetAsync(string preset);
 }
