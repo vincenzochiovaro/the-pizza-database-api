@@ -11,10 +11,12 @@ public class TimerSubmitScheduleRequest
     public required string Email { get; set; }
 
     public required PizzaPreset Preset { get; set; }
+    
+    public required MixingType MixingType { get; set; }
 
     public required DoughIngredients PresetData { get; set; }
 
-    public required string Lang { get; set; }
+    public required Language  Lang { get; set; }
 }
 
 public class DoughIngredients

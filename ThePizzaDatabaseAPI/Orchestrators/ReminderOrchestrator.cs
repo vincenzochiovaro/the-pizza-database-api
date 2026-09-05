@@ -22,7 +22,10 @@ public class ReminderOrchestrator
             {
                 RecipientEmail = schedule.Email,
                 Preset = schedule.Preset,
+                MixingType = schedule.MixingType,
                 Reminders = schedule.Reminders,
+                Lang = schedule.Lang,
+                PresetData = schedule.PresetData,
                 Round = ReminderRound.First
             });
 
@@ -34,7 +37,10 @@ public class ReminderOrchestrator
             {
                 RecipientEmail = schedule.Email,
                 Preset = schedule.Preset,
+                Lang = schedule.Lang,
+                MixingType = schedule.MixingType,
                 Reminders = schedule.Reminders,
+                PresetData = schedule.PresetData,
                 Round = ReminderRound.Second
             });
 
@@ -46,7 +52,10 @@ public class ReminderOrchestrator
             {
                 RecipientEmail = schedule.Email,
                 Preset = schedule.Preset,
+                Lang = schedule.Lang,
+                MixingType = schedule.MixingType,
                 Reminders = schedule.Reminders,
+                PresetData = schedule.PresetData,
                 Round = ReminderRound.Third
             });
     }
